@@ -690,8 +690,48 @@ const chabadData = {
 
 // ─── AGODA ─────────────────────────────────────────────────────────────────
 const AGODA_SITE_ID = '1925990';
+const AGODA_API_KEY = '81c5cba9-907c-4bf8-9891-9f8500a0b60c';
+
+// Agoda city IDs for each destination
+const agodaCityIds = {
+  'ko-samui':   3641,
+  'ko-phangan': 3642,
+  'krabi':      14317,
+  'ko-tao':     14319,
+  'bangkok':    14300,
+  'pattaya':    14346,
+  'chiang-mai': 14332,
+  'pai':        15219,
+  'hua-hin':    14311,
+};
+
 function agodaUrl(hotelName) {
   return `https://www.agoda.com/search?hotel=${encodeURIComponent(hotelName)}&site_id=${AGODA_SITE_ID}&tag=thailand-site`;
+}
+
+async function fetchAgodaHotels(destId) {
+  const cityId = agodaCityIds[destId];
+  if (!cityId) return null;
+  const today = new Date();
+  const checkIn  = today.toISOString().split('T')[0];
+  const checkOut = new Date(today.getTime() + 86400000).toISOString().split('T')[0];
+  try {
+    const res = await fetch('https://affiliateapi7643.agoda.com/affiliateservice/lt_v2', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${AGODA_SITE_ID}:${AGODA_API_KEY}`,
+      },
+      body: JSON.stringify({
+        criteria: { cityId, checkIn, checkOut, rooms: 1, adults: 2, children: 0, currency: 'USD' },
+        paging: { pageNo: 1, pageSize: 20 },
+      }),
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
 }
 
 // ─── STATE ─────────────────────────────────────────────────────────────────
@@ -830,7 +870,7 @@ function showHotelTypes(dest) {
   });
 }
 
-function showFamilyHotels(dest) {
+async function showFamilyHotels(dest) {
   heroImg.src = dest.hero;
   heroTitle.textContent = `מלונות משפחתיים ב${dest.name}`;
   heroSub.textContent   = '20 מלונות מומלצים למשפחות';
@@ -842,14 +882,34 @@ function showFamilyHotels(dest) {
     { label: '👨‍👩‍👧‍👦 משפחות' },
   ]);
 
+  grid.className = 'grid hotel-grid fade-in';
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:#888;">טוען מלונות מאגודה...</div>';
+
+  // נסיון לטעון תמונות ומחירים אמיתיים מ-Agoda
+  const agodaData = await fetchAgodaHotels(dest.id);
+
   const hotels = familyHotels[dest.id] || [];
   const imgPool = hotelImgs[destImgType[dest.id]] || hotelImgs.beach;
-  grid.className = 'grid hotel-grid fade-in';
   grid.innerHTML = '';
-  hotels.forEach((hotel, i) => {
-    const img = imgPool[i % imgPool.length];
-    grid.appendChild(makeHotelCard(hotel, img));
-  });
+
+  if (agodaData && agodaData.hotelResults && agodaData.hotelResults.length > 0) {
+    // מיפוי תמונות ומחירים אמיתיים לפי שם מלון
+    const agodaMap = {};
+    agodaData.hotelResults.forEach(h => {
+      agodaMap[h.hotelName] = h;
+    });
+    hotels.forEach((hotel, i) => {
+      const match = agodaMap[hotel.name];
+      const img = (match && match.imageUrl) ? match.imageUrl : imgPool[i % imgPool.length];
+      const price = (match && match.lowestPrice) ? `החל מ-$${Math.round(match.lowestPrice)}/לילה` : hotel.price;
+      grid.appendChild(makeHotelCard({ ...hotel, price }, img));
+    });
+  } else {
+    // fallback — תמונות מקומיות
+    hotels.forEach((hotel, i) => {
+      grid.appendChild(makeHotelCard(hotel, imgPool[i % imgPool.length]));
+    });
+  }
 }
 
 function showChabad(dest) {
