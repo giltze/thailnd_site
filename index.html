@@ -688,6 +688,12 @@ const chabadData = {
   },
 };
 
+// ─── AGODA ─────────────────────────────────────────────────────────────────
+const AGODA_SITE_ID = '1925990';
+function agodaUrl(hotelName) {
+  return `https://www.agoda.com/search?hotel=${encodeURIComponent(hotelName)}&site_id=${AGODA_SITE_ID}&tag=thailand-site`;
+}
+
 // ─── STATE ─────────────────────────────────────────────────────────────────
 let currentDest = null;
 
@@ -743,6 +749,10 @@ function makeHotelCard(hotel, imgSrc) {
       <div class="hotel-stars">${stars}</div>
       <div class="hotel-desc">${hotel.desc}</div>
       <div class="hotel-price">${hotel.price}</div>
+      <a href="${agodaUrl(hotel.name)}" target="_blank" rel="noopener"
+         style="margin-top:10px;display:block;text-align:center;padding:9px;background:#e5472d;color:#fff;font-weight:700;border-radius:8px;font-size:0.9rem;text-decoration:none;">
+        הזמן באגודה &larr;
+      </a>
     </div>`;
   return card;
 }
