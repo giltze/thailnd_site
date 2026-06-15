@@ -716,12 +716,9 @@ async function fetchAgodaHotels(destId) {
   const checkIn  = today.toISOString().split('T')[0];
   const checkOut = new Date(today.getTime() + 86400000).toISOString().split('T')[0];
   try {
-    const res = await fetch('https://affiliateapi7643.agoda.com/affiliateservice/lt_v2', {
+    const res = await fetch('/.netlify/functions/agoda', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${AGODA_SITE_ID}:${AGODA_API_KEY}`,
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         criteria: { cityId, checkIn, checkOut, rooms: 1, adults: 2, children: 0, currency: 'USD' },
         paging: { pageNo: 1, pageSize: 20 },
