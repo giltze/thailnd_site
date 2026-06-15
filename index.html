@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>תאילנד — ארץ החיוכים</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #ffffff;
+      color: #1a1a2e;
+      direction: rtl;
+      min-height: 100vh;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      height: 30vh;
+      min-height: 240px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .hero img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 60%;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 0 20px;
+    }
+    .hero-overlay h1 {
+      font-size: clamp(1.8rem, 5vw, 3.8rem);
+      font-weight: 800; letter-spacing: 2px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.7); color: #fff;
+    }
+    .hero-overlay p {
+      margin-top: 8px;
+      font-size: clamp(0.9rem, 2vw, 1.3rem);
+      color: rgba(255,255,255,0.85);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+    }
+
+    /* ===== NAV BAR ===== */
+    #nav-bar {
+      display: none; align-items: center; gap: 8px;
+      flex-wrap: wrap; padding: 20px 32px 0;
+    }
+    .back-btn {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(220,160,0,0.1);
+      border: 1px solid rgba(220,160,0,0.4);
+      color: #b8860b; font-size: 0.9rem; font-weight: 600;
+      padding: 6px 16px; border-radius: 30px;
+      cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .back-btn:hover { background: rgba(220,160,0,0.2); }
+    .nav-sep { color: rgba(0,0,0,0.25); font-size: 1.1rem; }
+    .nav-current { color: #b8860b; font-weight: 600; font-size: 0.9rem; }
+
+    /* ===== SECTION ===== */
+    .section {
+      padding: 32px 32px 64px;
+      max-width: 1400px; margin: 0 auto;
+    }
+    .section-title {
+      text-align: center; font-size: 1.6rem;
+      margin-bottom: 32px; color: #b8860b; letter-spacing: 1px;
+    }
+
+    /* ===== GRIDS ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 22px;
+    }
+    .grid.dest-grid .card { aspect-ratio: 4/3; }
+    .grid.cat-grid  .card { aspect-ratio: 3/2.2; }
+    .grid.hotel-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+    /* ===== STANDARD CARD ===== */
+    .card {
+      border-radius: 16px; overflow: hidden;
+      cursor: pointer; position: relative;
+      background: #f0f0f0;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 12px 40px rgba(249,199,79,0.22);
+    }
+    .card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .card:hover img { transform: scale(1.08); }
+    .card-label {
+      position: absolute; bottom: 0; right: 0; left: 0;
+      padding: 40px 16px 14px;
+      background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%);
+      display: flex; flex-direction: column; align-items: flex-end;
+    }
+    .card-label .icon { font-size: 1.6rem; margin-bottom: 4px; }
+    .card-label h3 { font-size: 1.2rem; font-weight: 700; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
+    .card-label span { font-size: 0.76rem; color: #f9c74f; margin-top: 3px; }
+
+    /* ===== HOTEL CARD ===== */
+    .hotel-card {
+      border-radius: 16px; overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .hotel-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(249,199,79,0.2);
+    }
+    .hotel-card .hotel-img-wrap {
+      width: 100%; height: 190px; overflow: hidden; flex-shrink: 0;
+    }
+    .hotel-card .hotel-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s ease;
+    }
+    .hotel-card:hover .hotel-img-wrap img { transform: scale(1.07); }
+    .hotel-card .hotel-info {
+      padding: 14px 16px 16px;
+      display: flex; flex-direction: column; gap: 6px;
+      flex: 1;
+    }
+    .hotel-card .hotel-name {
+      font-size: 1rem; font-weight: 700; color: #1a1a2e; line-height: 1.3;
+    }
+    .hotel-card .hotel-stars { color: #d4a017; font-size: 0.85rem; letter-spacing: 1px; }
+    .hotel-card .hotel-desc {
+      font-size: 0.78rem; color: rgba(0,0,0,0.55); line-height: 1.5;
+    }
+    .hotel-card .hotel-price {
+      font-size: 0.8rem; font-weight: 600;
+      color: #4ade80; margin-top: auto; padding-top: 8px;
+    }
+
+    /* ===== INSURANCE CARD ===== */
+    .insurance-card {
+      border: 2px solid rgba(249,199,79,0.5) !important;
+      box-shadow: 0 4px 24px rgba(249,199,79,0.15) !important;
+    }
+    .insurance-card .card-label {
+      background: linear-gradient(to top, rgba(10,20,10,0.92) 0%, transparent 100%);
+    }
+    .insurance-card .card-label h3 { color: #f9c74f; }
+
+    /* ===== CHABAD CARD ===== */
+    .chabad-card {
+      background: linear-gradient(135deg, #f9f9f9 0%, #eef7ee 100%);
+      border: 1px solid rgba(0,160,80,0.25);
+      border-radius: 20px;
+      padding: 32px;
+      max-width: 680px;
+      margin: 0 auto;
+      box-shadow: 0 8px 40px rgba(0,160,80,0.08);
+    }
+    .chabad-card .chabad-header {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+    }
+    .chabad-card .chabad-icon { font-size: 3rem; }
+    .chabad-card .chabad-title { font-size: 1.4rem; font-weight: 800; color: #1a1a2e; }
+    .chabad-card .chabad-subtitle { font-size: 0.85rem; color: rgba(0,0,0,0.45); margin-top: 4px; }
+    .chabad-card .chabad-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.07);
+      font-size: 0.95rem;
+    }
+    .chabad-card .chabad-row:last-child { border-bottom: none; }
+    .chabad-card .chabad-row .label {
+      color: rgba(0,0,0,0.4); min-width: 90px; font-size: 0.82rem; padding-top: 2px;
+    }
+    .chabad-card .chabad-row .value { color: #1a1a2e; line-height: 1.6; }
+    .chabad-card .chabad-row a { color: #16a34a; text-decoration: none; }
+    .chabad-card .chabad-row a:hover { text-decoration: underline; }
+    .chabad-no {
+      text-align: center; color: rgba(0,0,0,0.45);
+      font-size: 1rem; padding: 40px 20px; line-height: 1.8;
+    }
+    .chabad-no strong { color: #b8860b; }
+
+    /* ===== FADE ===== */
+    .fade-in { animation: fadeIn 0.35s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      text-align: center; padding: 20px;
+      color: rgba(0,0,0,0.35); font-size: 0.78rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <img id="hero-img" src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=2560&q=90" alt="תאילנד" />
+    <div class="hero-overlay">
+      <h1 id="hero-title">🇹🇭 תאילנד</h1>
+      <p id="hero-sub">ארץ החיוכים — גלו את פלאי הממלכה</p>
+    </div>
+  </section>
+
+  <div id="nav-bar"></div>
+
+  <div class="section">
+    <h2 class="section-title" id="section-title">יעדים מובילים</h2>
+    <div id="main-grid" class="grid dest-grid fade-in"></div>
+  </div>
+
+  <footer>© 2025 אתר תיירות תאילנד · כל הזכויות שמורות</footer>
+
+<script>
+// ─── DATA ──────────────────────────────────────────────────────────────────
+
+const destinations = [
+  { id:'ko-samui',   name:'קו סמוי',    sub:'האי הגדול של המפרץ התאילנדי',   img:'https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=85',  hero:'https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=2560&q=90' },
+  { id:'ko-phangan', name:'קו פנגן',    sub:'Full Moon Party ויופי טבעי',     img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=85',  hero:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=2560&q=90' },
+  { id:'krabi',      name:'קראבי',      sub:'צוקי גיר וחופים אגדיים',         img:'https://images.unsplash.com/photo-1548366086-7f1b76106622?w=800&q=85',  hero:'https://images.unsplash.com/photo-1548366086-7f1b76106622?w=2560&q=90' },
+  { id:'ko-tao',     name:'קו טאו',     sub:'גן עדן לצוללנים',                img:'https://images.unsplash.com/photo-1596521535370-57ccbf5b2b48?w=800&q=85', hero:'https://images.unsplash.com/photo-1596521535370-57ccbf5b2b48?w=2560&q=90' },
+  { id:'bangkok',    name:'בנגקוק',     sub:'הבירה הקוסמת — מקדשים ושווקים', img:'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=85', hero:'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=2560&q=90' },
+  { id:'pattaya',    name:'פאטייה',     sub:'הכרך הבלתי נשכח של המפרץ',       img:'https://images.unsplash.com/photo-1655714853399-5735b457a25b?w=800&q=85', hero:'https://images.unsplash.com/photo-1655714853399-5735b457a25b?w=2560&q=90' },
+  { id:'chiang-mai', name:"צ'אנג מאי",  sub:'עיר הפילים ומקדשי ההרים',        img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=85', hero:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=2560&q=90' },
+  { id:'pai',        name:'פאי',        sub:'עמק הירוק הנסתר של הצפון',        img:'https://images.unsplash.com/photo-1611855836637-57499c2f4e55?w=800&q=85', hero:'https://images.unsplash.com/photo-1611855836637-57499c2f4e55?w=2560&q=90' },
+  { id:'hua-hin',    name:'הואה אין',   sub:'עיר הנופש המלכותית',              img:'https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=800&q=85', hero:'https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=2560&q=90' },
+];
+
+const categoryImages = {
+  hotels:  'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=85',
+  markets: 'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=800&q=85',
+  beaches: 'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=85',
+  attract: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=85',
+  howto:   'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=85',
+  chabad:  'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&q=85',
+  drivers: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=800&q=85',
+  laundry: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=800&q=85',
+};
+
+const categories = [
+  { key:'hotels',  icon:'🏨', name:'מלונות מומלצים',  sub:'המקומות הטובים ביותר לישון' },
+  { key:'markets', icon:'🛍️', name:'שווקים',           sub:'קניות, אוכל ואווירה' },
+  { key:'beaches', icon:'🏖️', name:'חופים',            sub:'החולות הלבנות והמים הצלולים' },
+  { key:'attract', icon:'🏛️', name:'אטרקציות',         sub:'מה חייבים לראות ולעשות' },
+  { key:'howto',   icon:'✈️', name:'איך מגיעים?',      sub:'טיסות, רכבות, ספינות ואוטובוסים' },
+  { key:'chabad',  icon:'🕍', name:'בית חבד',           sub:'קהילה יהודית ואירוח ישראלי' },
+  { key:'drivers', icon:'🚗', name:'נהגים מומלצים',    sub:'העברות אמינות ומשתלמות' },
+  { key:'laundry', icon:'👕', name:'מכבסות',            sub:'שירותי כביסה בכל הרמות' },
+];
+
+const hotelTypes = [
+  { key:'families', icon:'👨‍👩‍👧‍👦', name:'משפחות', sub:'מלונות מרווחים עם בריכות ופעילויות לילדים', img:'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&q=85' },
+  { key:'couples',  icon:'💑',        name:'זוגות',   sub:'רומנטיקה, ספא ונופים מרהיבים',               img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=85' },
+  { key:'young',    icon:'🎒',        name:'צעירים',  sub:'הוסטלים, פעילות ואווירה שוקקת',               img:'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=85' },
+];
+
+// Image pools by destination type
+const hotelImgs = {
+  // חוף ים — איים, קראבי, פאטייה, הואה אין
+  beach: [
+    'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80', // beach resort pool
+    'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80', // overwater villa
+    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80', // tropical pool villa
+    'https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=600&q=80', // beach resort
+    'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80', // beachfront resort
+    'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80', // tropical resort
+    'https://images.unsplash.com/photo-1540541338537-1220a3e80972?w=600&q=80', // resort pool sea view
+    'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80', // beach hotel exterior
+    'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=600&q=80', // pool with palms
+    'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&q=80', // hotel pool
+    'https://images.unsplash.com/photo-1529290130-4ca3753253ae?w=600&q=80', // beach hotel room
+    'https://images.unsplash.com/photo-1455587734955-081b22074882?w=600&q=80', // resort lobby
+    'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80', // hotel exterior
+    'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=80', // luxury hotel room
+    'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80', // hotel room sea view
+    'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?w=600&q=80', // resort at dusk
+    'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=600&q=80', // hotel lobby
+    'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80', // hotel room
+    'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=600&q=80', // hotel room
+    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80', // resort aerial
+  ],
+  // עיר — בנגקוק
+  city: [
+    'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80', // hotel room city view
+    'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=80', // luxury hotel room
+    'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80', // hotel room
+    'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=600&q=80', // hotel room
+    'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80', // city hotel exterior
+    'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=600&q=80', // hotel lobby
+    'https://images.unsplash.com/photo-1455587734955-081b22074882?w=600&q=80', // hotel interior
+    'https://images.unsplash.com/photo-1529290130-4ca3753253ae?w=600&q=80', // hotel room
+    'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&q=80', // rooftop pool
+    'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?w=600&q=80', // hotel at night
+    'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=600&q=80', // hotel pool
+    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80', // hotel
+    'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80', // hotel
+    'https://images.unsplash.com/photo-1540541338537-1220a3e80972?w=600&q=80', // hotel
+    'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80', // hotel pool
+    'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&q=80', // hotel suite
+    'https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=600&q=80', // hotel
+    'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80', // hotel suite
+    'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80', // hotel
+    'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&q=80', // hotel exterior
+  ],
+  // הרים וטבע — צ'אנג מאי, פאי
+  mountain: [
+    'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=600&q=80', // jungle pool resort
+    'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80', // mountain resort pool
+    'https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=600&q=80', // tropical garden resort
+    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80', // mountain landscape
+    'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=600&q=80', // wooden cabin resort
+    'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80', // nature lodge
+    'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=80', // hotel room
+    'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80', // hotel room
+    'https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=600&q=80', // hotel room
+    'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80', // hotel room
+    'https://images.unsplash.com/photo-1529290130-4ca3753253ae?w=600&q=80', // hotel room
+    'https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=600&q=80', // hotel lobby
+    'https://images.unsplash.com/photo-1455587734955-081b22074882?w=600&q=80', // interior
+    'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=600&q=80', // pool in garden
+    'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&q=80', // hotel pool
+    'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80', // building exterior
+    'https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?w=600&q=80', // resort night
+    'https://images.unsplash.com/photo-1549294413-26f195200c16?w=600&q=80', // nature resort
+    'https://images.unsplash.com/photo-1540541338537-1220a3e80972?w=600&q=80', // resort
+    'https://images.unsplash.com/photo-1602002418082-a4443e081dd1?w=600&q=80', // resort
+  ],
+};
+
+// מיפוי יעד → סוג תמונות
+const destImgType = {
+  'ko-samui':   'beach',
+  'ko-phangan': 'beach',
+  'krabi':      'beach',
+  'ko-tao':     'beach',
+  'bangkok':    'city',
+  'pattaya':    'beach',
+  'chiang-mai': 'mountain',
+  'pai':        'mountain',
+  'hua-hin':    'beach',
+};
+
+// Family hotels per destination — 20 each
+const familyHotels = {
+  'ko-samui': [
+    { name:'Centara Grand Beach Resort Samui',      stars:5, desc:'אחד הנופשים היוקרתיים ביותר בחוף צ\'אוונג, בריכה ענקית ומועדון ילדים מצוין', price:'החל מ-$180/לילה' },
+    { name:'Anantara Bophut Koh Samui Resort',      stars:5, desc:'ריף שוניות פרטי, ספא מפנק ופעילויות ים לכל המשפחה', price:'החל מ-$200/לילה' },
+    { name:'InterContinental Koh Samui',            stars:5, desc:'וילות עם בריכה פרטית ותצפית על המפרץ, אווירה שקטה ומשפחתית', price:'החל מ-$250/לילה' },
+    { name:'Bandara Resort & Spa Samui',            stars:4, desc:'חוף פרטי, בריכות מדורגות ומגוון חדרים לכל גודל משפחה', price:'החל מ-$110/לילה' },
+    { name:'Chaweng Regent Beach Resort',           stars:4, desc:'ממוקם ישירות על חוף צ\'אוונג, מרחק הליכה מהשוק הלילי', price:'החל מ-$90/לילה' },
+    { name:'Nora Beach Resort & Spa',               stars:4, desc:'חוף שקט, חדרים מרווחים ומטבח תאילנדי אותנטי', price:'החל מ-$85/לילה' },
+    { name:'Fair House Beach Resort',               stars:3, desc:'אווירה משפחתית נינוחה, בריכה ציבורית וחוף נגיש', price:'החל מ-$55/לילה' },
+    { name:'Samui Palm Beach Resort',               stars:4, desc:'גינות טרופיות ירוקות, קרוב לאטרקציות העיקריות', price:'החל מ-$95/לילה' },
+    { name:'Bo Phut Resort & Spa',                  stars:4, desc:'בחוף בו-פוט השקט, עיצוב בוטיק ויחס אישי', price:'החל מ-$100/לילה' },
+    { name:'SAii Koh Samui Chaweng Beach',          stars:4, desc:'רזורט צבעוני וחווייתי, מושלם למשפחות עם ילדים גדולים', price:'החל מ-$120/לילה' },
+    { name:'Amari Koh Samui',                       stars:4, desc:'ממוקם על הקצה הצפוני של צ\'אוונג, עם בריכה אינפיניטי', price:'החל מ-$130/לילה' },
+    { name:'The Sunset Beach Resort',               stars:4, desc:'נופי שקיעה מרהיבים, בריכה ולובי פתוח לרוח', price:'החל מ-$105/לילה' },
+    { name:'Hansar Samui Resort',                   stars:5, desc:'ריזורט בוטיק יוקרתי עם שירות 5 כוכבים ונוף לים', price:'החל מ-$190/לילה' },
+    { name:'Maenam Beach Resort',                   stars:3, desc:'חוף מאנאם השקט, מתאים לטיולי משפחה עם ילדים קטנים', price:'החל מ-$50/לילה' },
+    { name:'The Briza Beach Resort',                stars:4, desc:'מיקום מרכזי, מגוון מסעדות ובריכה מפנקת', price:'החל מ-$88/לילה' },
+    { name:'Rocky\'s Boutique Resort',              stars:4, desc:'חוף פרטי שקט בדרום האי, אווירה רגועה ואינטימית', price:'החל מ-$115/לילה' },
+    { name:'Samui Resotel Beach Resort',            stars:3, desc:'ערך לכסף מעולה, ישירות על החוף', price:'החל מ-$45/לילה' },
+    { name:'Cactus Resort',                         stars:3, desc:'מיקום מרכזי בלאמאי, קרוב לכל מרכזי הבילוי', price:'החל מ-$42/לילה' },
+    { name:'Lipa Lodge Beach Resort',               stars:4, desc:'חוף ליפה-נוי השקט, מקלט מהומות התיירות', price:'החל מ-$75/לילה' },
+    { name:'COMO Point Yamu Samui',                 stars:5, desc:'אחד הריזורטים הכי יוקרתיים בסמוי, ספא עולמי', price:'החל מ-$350/לילה' },
+  ],
+  'ko-phangan': [
+    { name:'Anantara Rasananda Koh Phangan',        stars:5, desc:'וילות על שפת הים עם בריכה פרטית, שקט מוחלט ורומנטיקה', price:'החל מ-$220/לילה' },
+    { name:'Santhiya Koh Phangan Resort & Spa',     stars:5, desc:'ריזורט אקולוגי יוקרתי על גג ההר עם תצפית עוצרת נשימה', price:'החל מ-$240/לילה' },
+    { name:'Panviman Koh Phangan Resort',           stars:5, desc:'גן עדן סודי בצפון האי, ספא ובריכות אינפיניטי', price:'החל מ-$195/לילה' },
+    { name:'Haad Yao Bay View Resort',              stars:3, desc:'ממוקם על מפרץ הד-יאו, קרוב לחופים השקטים', price:'החל מ-$55/לילה' },
+    { name:'Phangan Bayshore Resort',               stars:3, desc:'אווירה משפחתית נינוחה, מרחק הליכה מחוף טונגסלה', price:'החל מ-$50/לילה' },
+    { name:'Coco Garden Resort',                    stars:3, desc:'גינת קוקוסים מקסימה, בריכה וקאבנות נחמדות', price:'החל מ-$45/לילה' },
+    { name:'Green Papaya Resort',                   stars:4, desc:'עיצוב בוטיק ירוק ושקט, חוף פרטי קטן', price:'החל מ-$80/לילה' },
+    { name:'Baan Hin Sai Resort & Spa',             stars:4, desc:'חצוב בסלע, עם בריכת אינפיניטי מדהימה', price:'החל מ-$90/לילה' },
+    { name:'Koh Phangan Dreamland Resort',          stars:3, desc:'אווירה כפרית וחמה, מושלם לטיולים עצמאיים', price:'החל מ-$40/לילה' },
+    { name:'Haad Tien Beach Resort',                stars:4, desc:'חוף מבודד נגיש רק בסירה — חוויה בלתי נשכחת', price:'החל מ-$110/לילה' },
+    { name:'Milky Bay Resort',                      stars:3, desc:'מיקום מעולה בלב האי, פופולרי בקרב ישראלים', price:'החל מ-$48/לילה' },
+    { name:'Serenity Resort Koh Phangan',           stars:4, desc:'ריזורט שקט עם גישה לחוף, בריכה ושירות מהיר', price:'החל מ-$85/לילה' },
+    { name:'Akyra Chura Samui Phangan',             stars:5, desc:'וילות יוקרה עם עיצוב מינימליסטי ונוף לים', price:'החל מ-$280/לילה' },
+    { name:'Bohemia Resort',                        stars:3, desc:'אווירה בוהמית וצבעונית, קהל צעיר ואנרגטי', price:'החל מ-$38/לילה' },
+    { name:'Golden Beach Resort',                   stars:3, desc:'ישירות על חוף הד-רין, קרוב לפול-מון-פארטי', price:'החל מ-$52/לילה' },
+    { name:'Jungle Huts Resort',                    stars:2, desc:'בקתות ג\'ונגל אותנטיות, חוויה ייחודית בתוך הטבע', price:'החל מ-$25/לילה' },
+    { name:'Phangan Paragon Resort & Spa',          stars:4, desc:'ריזורט מודרני עם ספא מפנק וחוף שקט', price:'החל מ-$95/לילה' },
+    { name:'Cape Haad Rin Resort',                  stars:3, desc:'על הכף עם תצפית לשני חופים, גישה קלה לכל מקום', price:'החל מ-$60/לילה' },
+    { name:'Sai Thong Resort',                      stars:3, desc:'ערך מצוין, קרוב לטונגסלה, פופולרי בקרב ישראלים', price:'החל מ-$44/לילה' },
+    { name:'Ko Pha Ngan Bayshore Resort',           stars:4, desc:'מפרץ פרטי, הסעות לכפרים ואפשרויות גלישה', price:'החל מ-$88/לילה' },
+  ],
+  'krabi': [
+    { name:'Rayavadee Resort',                      stars:5, desc:'חצי אי מבודד בין שלושה חופים — הריזורט הכי אייקוני בקראבי', price:'החל מ-$400/לילה' },
+    { name:'Phulay Bay Ritz-Carlton Reserve',       stars:5, desc:'חוויה יוקרתית בלתי נשכחת עם וילות מדהימות', price:'החל מ-$500/לילה' },
+    { name:'Centara Grand Beach Resort',            stars:5, desc:'ממוקם על חוף קלונג מואנג, בריכות מפנקות ומועדון ילדים', price:'החל מ-$200/לילה' },
+    { name:'Sheraton Krabi Beach Resort',           stars:5, desc:'חוף פרטי ארוך, ריזורט משפחתי מושלם עם כל השירותים', price:'החל מ-$185/לילה' },
+    { name:'Sofitel Krabi Phokeethra',              stars:5, desc:'גולף, ספא וחוף — ריזורט מפואר לכל הטעמים', price:'החל מ-$230/לילה' },
+    { name:'Nakamanda Resort & Spa',                stars:5, desc:'וילות אינפיניטי פול עם נוף לאיים, פינוק מוחלט', price:'החל מ-$280/לילה' },
+    { name:'Dusit Thani Krabi Beach Resort',        stars:5, desc:'ריזורט תאילנדי מסורתי על חוף נקי, שירות מעולה', price:'החל מ-$195/לילה' },
+    { name:'Holiday Inn Resort Krabi',              stars:4, desc:'ריזורט משפחתי ידידותי עם פעילויות ילדים מגוונות', price:'החל מ-$130/לילה' },
+    { name:'Krabi Resort',                          stars:4, desc:'ממוקם על שפת המנגרובים, מוקף טבע ירוק', price:'החל מ-$95/לילה' },
+    { name:'The Tubkaak Boutique Resort',           stars:4, desc:'בוטיק אלגנטי על חוף שקט ומבודד', price:'החל מ-$110/לילה' },
+    { name:'Aonang Cliff Beach Resort',             stars:4, desc:'על הצוק מעל אאו-נאנג, תצפית מרהיבה לאיים', price:'החל מ-$105/לילה' },
+    { name:'Vogue Resort & Spa Ao Nang',            stars:4, desc:'עיצוב מודרני ומינימליסטי, בריכה אינפיניטי ממש על הים', price:'החל מ-$120/לילה' },
+    { name:'Novotel Krabi Rim Haad Resort',         stars:4, desc:'ישירות על החוף, מסעדות מצוינות ושירות אמין', price:'החל מ-$115/לילה' },
+    { name:'Krabi Heritage Hotel',                  stars:3, desc:'בלב העיר, קרוב לשוק הלילי ולמסוף הספינות', price:'החל מ-$50/לילה' },
+    { name:'Sand Sea Resort',                       stars:3, desc:'ממוקם על חוף ריילי, נגיש רק בסירה', price:'החל מ-$75/לילה' },
+    { name:'Dream Garden House',                    stars:3, desc:'בית אורחים קסום בגינה טרופית, אווירה ביתית', price:'החל מ-$40/לילה' },
+    { name:'Pai Plong Beach Hideaway',              stars:4, desc:'חוף מבודד ושקט, אחד השמורים בקראבי', price:'החל מ-$90/לילה' },
+    { name:'Ao Nang Center Point Hotel',            stars:3, desc:'מרכזי ונוח, צעדים ספורים מהחוף ומהשוק', price:'החל מ-$55/לילה' },
+    { name:'Tiger Cave Eco Lodge',                  stars:3, desc:'בסמוך למקדש המפורסם, חוויה אקולוגית אותנטית', price:'החל מ-$45/לילה' },
+    { name:'At Ease Resort Krabi',                  stars:4, desc:'פינוק, שקט וחוף קסום — הצעת ערך מדהימה', price:'החל מ-$88/לילה' },
+  ],
+  'ko-tao': [
+    { name:'Jamahkiri Resort & Spa',                stars:4, desc:'על ראש ההר עם תצפית מרהיבה, ספא ייחודי ובריכה', price:'החל מ-$120/לילה' },
+    { name:'KONA Koh Tao',                          stars:4, desc:'ריזורט מודרני וצבעוני ישירות על חוף שאלוק-בן', price:'החל מ-$100/לילה' },
+    { name:'Haad Tien Beach Club',                  stars:4, desc:'חוף מבודד שנגיש רק בסירה, שקט ונדיר', price:'החל מ-$95/לילה' },
+    { name:'Sensi Paradise Beach Resort',           stars:4, desc:'על חוף קו-נוק, מושלם לצוללנים ולמשפחות אוהבות ים', price:'החל מ-$90/לילה' },
+    { name:'Ban\'s Diving Resort',                  stars:3, desc:'מרכז הצלילה הכי מפורסם באי, גם חדרים נוחים ומשובחים', price:'החל מ-$65/לילה' },
+    { name:'Blue Wind Bakery & Resort',             stars:3, desc:'אווירה תאילנדית אותנטית, מאפייה מפורסמת בחצר', price:'החל מ-$50/לילה' },
+    { name:'Koh Tao Regal Resort',                  stars:4, desc:'נוף פנורמי, בריכה ויחס אישי ורצוי', price:'החл מ-$85/לילה' },
+    { name:'Sairee Beach Backpackers',              stars:2, desc:'ישירות על חוף סיירי, עממי ופופולרי בקרב צעירים', price:'החל מ-$18/לילה' },
+    { name:'View Rock Resort',                      stars:4, desc:'חצוב בסלע על גבעה עם בריכה ואינפיניטי לים', price:'החל מ-$110/לילה' },
+    { name:'Crystal Dive Resort',                   stars:3, desc:'בית ספר לצלילה ידוע, חדרים נוחים ואווירה פעילה', price:'החל מ-$55/לילה' },
+    { name:'Sunshine Divers Resort',               stars:3, desc:'אווירה חבר\'ה, קהל ישראלי, מרחק הליכה מכל מקום', price:'החל מ-$48/לילה' },
+    { name:'Haad Tien Ocean View',                  stars:3, desc:'תצפית נוף עוצרת נשימה מחדרי הגבול', price:'החל מ-$60/לילה' },
+    { name:'New Heaven Dive School Cabin',          stars:3, desc:'מיקום שקט, מוסמכים בצלילה אקולוגית', price:'החל מ-$45/לילה' },
+    { name:'Koh Tao Bamboo Huts',                   stars:2, desc:'בקתות במבוק על החוף — חוויה בסיסית אבל בלתי נשכחת', price:'החל מ-$22/לילה' },
+    { name:'Charm Churee Villa',                    stars:4, desc:'וילות בקתות עם נוף לים, אחת המועדפות על האי', price:'החל מ-$105/לילה' },
+    { name:'Mae Haad Bay Resort',                   stars:3, desc:'קרוב לנמל, נח לסיורים יומיים לאיים הסמוכים', price:'החל מ-$55/לילה' },
+    { name:'Thalassa Koh Tao',                      stars:4, desc:'ריזורט חדש ומושקע עם חוף כמעט פרטי', price:'החל מ-$95/לילה' },
+    { name:'Ko Tao Resort',                         stars:3, desc:'ותיק ואמין, ממוקם טוב, אווירה תאילנדית מסורתית', price:'החל מ-$52/לילה' },
+    { name:'Baan Haad Ngam Boutique Resort',        stars:4, desc:'בוטיק קסום עם נוף לקו-נאנג-יואן ובריכה', price:'החל מ-$88/לילה' },
+    { name:'The Place Luxury Boutique Villas',      stars:5, desc:'הריזורט הכי יוקרתי בקו-טאו, וילות עם בריכה פרטית', price:'החל מ-$300/לילה' },
+  ],
+  'bangkok': [
+    { name:'Mandarin Oriental Bangkok',             stars:5, desc:'המלון האגדי על גדות נהר הצ\'או-פראיה, אחד הטובים בעולם', price:'החל מ-$350/לילה' },
+    { name:'The Peninsula Bangkok',                 stars:5, desc:'שירות מושלם, נוף לנהר ובריכה על הגג', price:'החל מ-$320/לילה' },
+    { name:'Anantara Riverside Bangkok Resort',     stars:5, desc:'ריזורט מרגיע על גדות הנהר, רחוק מההמולה', price:'החל מ-$210/לילה' },
+    { name:'Centara Grand at CentralWorld',         stars:5, desc:'לב הקניות והבילוי, מושלם לשופינג-טריפ משפחתי', price:'החל מ-$180/לילה' },
+    { name:'Shangri-La Hotel Bangkok',              stars:5, desc:'מתחם מלונות ענק על הנהר עם בריכות ומגרשי טניס', price:'החל מ-$220/לילה' },
+    { name:'Lebua State Tower',                     stars:5, desc:'מלון הגג המפורסם מהסרט "The Hangover Part II"', price:'החל מ-$260/לילה' },
+    { name:'Four Seasons Hotel Bangkok',            stars:5, desc:'מלון חדש וידידותי למשפחות עם ספא עולמי', price:'החל מ-$300/לילה' },
+    { name:'Rosewood Bangkok',                      stars:5, desc:'עיצוב מדהים, יחס אישי ומיקום מרכזי', price:'החל מ-$280/לילה' },
+    { name:'Park Hyatt Bangkok',                    stars:5, desc:'גורד שחקים יוקרתי עם נוף פנורמי לעיר', price:'החל מ-$290/לילה' },
+    { name:'Marriott Marquis Queen\'s Park',        stars:5, desc:'מלון ענק בלב סוכומביט, בריכות, ספא ומסעדות', price:'החל מ-$190/לילה' },
+    { name:'Hilton Sukhumvit Bangkok',              stars:5, desc:'מיקום נוח על BTS, ממש ליד מסעדות ושוקים', price:'החל מ-$150/לילה' },
+    { name:'JW Marriott Hotel Bangkok',             stars:5, desc:'מלון קלאסי בסוכומביט עם שירות מעולה', price:'החל מ-$160/לילה' },
+    { name:'Novotel Bangkok Suvarnabhumi',          stars:4, desc:'ישירות על שדה התעופה, אידיאלי לטיסות מוקדמות', price:'החל מ-$95/לילה' },
+    { name:'Ibis Bangkok Riverside',                stars:3, desc:'ערך מצוין ונוף לנהר, שירות נהר חינמי', price:'החל מ-$55/לילה' },
+    { name:'Chatrium Hotel Riverside',              stars:5, desc:'מגדל פנורמי על הנהר, בריכה אינפיניטי ומסעדות', price:'החל מ-$170/לילה' },
+    { name:'The Siam Hotel',                        stars:5, desc:'בוטיק יוקרתי על גדות הנהר, עיצוב תאילנדי קלאסי', price:'החל מ-$310/לילה' },
+    { name:'Avani+ Riverside Bangkok',              stars:5, desc:'מלון מודרני עם בריכת גג ספקטקולרית', price:'החל מ-$145/לילה' },
+    { name:'SO/ Bangkok',                           stars:5, desc:'מלון עיצוב בלומפיני פארק, בריכה ייחודית ואווירה אופנתית', price:'החל מ-$140/לילה' },
+    { name:'Bangkok Marriott Hotel Sukhumvit',      stars:5, desc:'מרכזי, מודרני ומושלם לתיירות עירונית', price:'החל מ-$155/לילה' },
+    { name:'Dream Bangkok Hotel',                   stars:4, desc:'עיצוב בוטיק נועז בסוכומביט, בריכה ייחודית', price:'החל מ-$100/לילה' },
+  ],
+  'pattaya': [
+    { name:'Hilton Pattaya',                        stars:5, desc:'על ריק-אווניו, תצפית לים עם בריכה על הגג', price:'החל מ-$160/לילה' },
+    { name:'Royal Cliff Beach Hotel',               stars:5, desc:'מתחם ענק על הצוק, 5 בריכות ומגרש טניס', price:'החל מ-$200/לילה' },
+    { name:'Dusit Thani Pattaya',                   stars:5, desc:'ריזורט יוקרתי ומשפחתי עם חוף פרטי', price:'החל מ-$185/לילה' },
+    { name:'Hard Rock Hotel Pattaya',               stars:4, desc:'אווירה שוקקת ומגניבה, בריכה ענקית ומוסיקה', price:'החל מ-$110/לילה' },
+    { name:'Amari Ocean Pattaya',                   stars:4, desc:'ישירות על החוף, נוף פנורמי ובריכות מעולות', price:'החל מ-$120/לילה' },
+    { name:'Centara Grand Mirage Beach Resort',     stars:5, desc:'פארק מים ענק בתוך הריזורט — חלום לילדים', price:'החל מ-$220/לילה' },
+    { name:'Pullman Pattaya Hotel G',               stars:5, desc:'מלון מודרני ואנרגטי על הצוק בצפון פאטייה', price:'החל מ-$175/לילה' },
+    { name:'Novotel Pattaya Rim Pae',               stars:4, desc:'ישירות על החוף, שירות מקצועי ומחיר הוגן', price:'החל מ-$100/לילה' },
+    { name:'Avani Pattaya Resort',                  stars:4, desc:'בריכות מדהימות ומיקום מרכזי בלב פאטייה', price:'החל מ-$95/לילה' },
+    { name:'Mercure Pattaya Ocean Resort',          stars:4, desc:'על חוף ג\'ומטיין, שקט יותר ומשפחתי', price:'החל מ-$88/לילה' },
+    { name:'LK Metropole Hotel',                    stars:3, desc:'מרכזי ומשתלם, קרוב לכל האטרקציות', price:'החל מ-$45/לילה' },
+    { name:'The Zign Hotel',                        stars:5, desc:'בוטיק יוקרתי ושקט בצפון פאטייה', price:'החל מ-$240/לילה' },
+    { name:'Woodlands Hotel & Resort',              stars:3, desc:'גינה ענקית, בריכה ואווירה כפרית ונינוחה', price:'החל מ-$50/לילה' },
+    { name:'Asia Pattaya Hotel',                    stars:4, desc:'על הצוק עם נוף מרהיב, בריכה ומסעדה', price:'החל מ-$75/לילה' },
+    { name:'Pinnacle Grand Jomtien',                stars:3, desc:'על חוף ג\'ומטיין, ערך מצוין למשפחות', price:'החל מ-$55/לילה' },
+    { name:'Grand Sole Hotel',                      stars:4, desc:'שקט ואלגנטי, מצוין לזוגות ומשפחות', price:'החל מ-$80/לילה' },
+    { name:'Rabbit Resort',                         stars:4, desc:'חוף פרטי שקט בדרום פאטייה, ריזורט שלווה', price:'החל מ-$90/לילה' },
+    { name:'PJ Pattaya Hotel',                      stars:3, desc:'אווירה ביתית ישראלית, פופולרי מאוד בקרב ישראלים', price:'החל מ-$48/לילה' },
+    { name:'iSanook Resort & Suites',               stars:4, desc:'ספא מפנק, בריכה ומיקום מעולה בג\'ומטיין', price:'החל מ-$85/לילה' },
+    { name:'Sea Sand Sun Resort and Villas',        stars:4, desc:'וילות יוקרה בחוף שקט, מרחק מהעיר', price:'החל מ-$130/לילה' },
+  ],
+  'chiang-mai': [
+    { name:'Anantara Chiang Mai Resort',            stars:5, desc:'על גדות נהר פינג, ריזורט קולוניאלי מרהיב', price:'החל מ-$200/לילה' },
+    { name:'Dhara Dhevi Chiang Mai',                stars:5, desc:'ממלכה תאילנדית בלב 60 דונם, חוויה בלתי נשכחת', price:'החל מ-$350/לילה' },
+    { name:'Four Seasons Resort Chiang Mai',        stars:5, desc:'שדות אורז ירוקים ורכיבה על פילים — הריזורט הכי אייקוני', price:'החל מ-$400/לילה' },
+    { name:'Rosewood Chiang Mai',                   stars:5, desc:'בוטיק יוקרתי חדש עם עיצוב לאנה-תאי', price:'החל מ-$320/לילה' },
+    { name:'137 Pillars House',                     stars:5, desc:'בית קולוניאלי בוטיק משוקם — ז\'ואל הכי יפה בעיר', price:'החל מ-$280/לילה' },
+    { name:'The Chedi Chiang Mai',                  stars:5, desc:'ארכיטקטורה עוצרת נשימה על גדות הנהר', price:'החל מ-$260/לילה' },
+    { name:'Le Méridien Chiang Mai',                stars:5, desc:'לב הנייט-בזאר, בריכה ומסעדות מצוינות', price:'החל מ-$155/לילה' },
+    { name:'Shangri-La Hotel Chiang Mai',           stars:5, desc:'מלון גדול ומפנק עם שני מגדלים ובריכות', price:'החל מ-$170/לילה' },
+    { name:'Centara Khum Phaya Resort',             stars:5, desc:'ריזורט סנטה עם ספא אורמנטל ובריכות', price:'החל מ-$145/לילה' },
+    { name:'Dusit Princess Chiang Mai',             stars:4, desc:'מרכזי, מקצועי ומשתלם בלב העיר', price:'החל מ-$85/לילה' },
+    { name:'Kantary Hills Hotel',                   stars:4, desc:'סוויטות גדולות עם מטבחון, מושלם לשהות ארוכה', price:'החל מ-$90/לילה' },
+    { name:'Zira Hotel Chiang Mai',                 stars:4, desc:'בוטיק מודרני בשכונת נימנהמין', price:'החל מ-$80/לילה' },
+    { name:'Tamarind Village',                      stars:4, desc:'בלב העיר העתיקה, עיצוב לאנה-תאי מקסים', price:'החל מ-$110/לילה' },
+    { name:'Ping Nakara Hotel',                     stars:5, desc:'בית עמודים לבנים ייחודי, בוטיק חלום על הנהר', price:'החל מ-$190/לילה' },
+    { name:'The Inside House',                      stars:4, desc:'עיצוב קריאייטיבי בלב ניימנהמין, אווירה נעימה', price:'החל מ-$95/לילה' },
+    { name:'Smile House 1',                         stars:2, desc:'גסטהאוס עממי בעיר העתיקה — הכי משתלם בצ\'אנג מאי', price:'החל מ-$18/לילה' },
+    { name:'BED Phrasingh',                         stars:4, desc:'בוטיק-הוסטל שיקי בלב העיר העתיקה', price:'החל מ-$40/לילה' },
+    { name:'Na Nirand Romantic Boutique Resort',    stars:5, desc:'על גדות הנהר, ריזורט שקט ורומנטי', price:'החל מ-$175/לילה' },
+    { name:'Rachamankha Hotel',                     stars:5, desc:'ריזורט מוזיאון בעיצוב ייחודי בעיר העתיקה', price:'החל מ-$200/לילה' },
+    { name:'The Empress Hotel',                     stars:4, desc:'מלון ותיק ומוכר, נוח לתיירים בלב הפעולה', price:'החל מ-$70/לילה' },
+  ],
+  'pai': [
+    { name:'Reverie Siam Resort',                   stars:5, desc:'ריזורט בוטיק מיוחד בסגנון שנות ה-30, על גדות הנהר', price:'החל מ-$180/לילה' },
+    { name:'Pairadise Resort',                      stars:4, desc:'בריכה אינפיניטי עם תצפית על עמק פאי', price:'החל מ-$110/לילה' },
+    { name:'Belle Villa Resort',                    stars:4, desc:'קאבנות עץ מרוהטות יפה בתוך גינה ירוקה', price:'החל מ-$90/לילה' },
+    { name:'Baan Pai Village',                      stars:3, desc:'כפר בקתות במבוק ותיק ופופולרי', price:'החל מ-$45/לילה' },
+    { name:'Mr. Jan\'s Guesthouse',                 stars:2, desc:'גסטהאוס עממי ידידותי בלב הכפר', price:'החל מ-$20/לילה' },
+    { name:'Pai River Corner',                      stars:3, desc:'על גדות הנהר, אווירה שקטה ומרגיעה', price:'החל מ-$38/לילה' },
+    { name:'The Quarter Pai Resort',                stars:4, desc:'עיצוב מינימליסטי מודרני, בריכה ושלווה', price:'החל מ-$85/לילה' },
+    { name:'Pai Treehouse',                         stars:3, desc:'חוויה ייחודית בתוך העצים, לאהבי טבע', price:'החל מ-$55/לילה' },
+    { name:'Spicypai Backpackers',                  stars:2, desc:'הוסטל הכי פופולרי בפאי, אווירה שוקקת', price:'החל מ-$12/לילה' },
+    { name:'Pai Chan Resort',                       stars:3, desc:'בין שדות אורז, קאבנות עם מרפסת ונוף', price:'החל מ-$42/לילה' },
+    { name:'Duang Guest House',                     stars:2, desc:'ותיק ואמין, קרוב לשוק הלילי', price:'החל מ-$15/לילה' },
+    { name:'Rim Pai Cottage',                       stars:4, desc:'קאבנות יוקרה על גדות הנהר, שקט ורוגע', price:'החל מ-$95/לילה' },
+    { name:'Mountain Blue Pai Resort',              stars:3, desc:'תצפית להרים, בריכה ואווירה כפרית', price:'החל מ-$50/לילה' },
+    { name:'Baan Krating Pai Resort',               stars:4, desc:'ריזורט בוטיק שקט עם גינות ירוקות', price:'החל מ-$80/לילה' },
+    { name:'Pai Yoga House',                        stars:3, desc:'יוגה, מדיטציה ואוכל בריא — חוויה הוליסטית', price:'החל מ-$35/לילה' },
+    { name:'Pai Nai Suan Resort',                   stars:3, desc:'בגינה טרופית שקטה, ממש על הנהר', price:'החל מ-$40/לילה' },
+    { name:'Breeze of Pai Resort',                  stars:3, desc:'קאבנות עם מרפסת, מוקף שדות אורז', price:'החל מ-$48/לילה' },
+    { name:'Pai Village Boutique Resort',           stars:4, desc:'מרכזי, נוח ועם בריכה קטנה', price:'החל מ-$70/לילה' },
+    { name:'Art in Chai Garden Home',               stars:3, desc:'אמנות ואווירה בוהמית, קהל קריאייטיבי', price:'החל מ-$32/לילה' },
+    { name:'Zensala Pai',                           stars:4, desc:'ריזורט ספא שקט, מועדף על זוגות ומשפחות', price:'החל מ-$88/לילה' },
+  ],
+  'hua-hin': [
+    { name:'Anantara Hua Hin Resort',               stars:5, desc:'ריזורט יוקרה על חוף ארוך, גנים טרופיים וספא', price:'החל מ-$200/לילה' },
+    { name:'Centara Grand Beach Resort',            stars:5, desc:'ריזורט היסטורי ואייקוני שנפתח ב-1923', price:'החל מ-$230/לילה' },
+    { name:'Intercontinental Hua Hin Resort',       stars:5, desc:'ריזורט מודרני ומשפחתי עם בריכות ספקטקולריות', price:'החל מ-$210/לילה' },
+    { name:'Sheraton Hua Hin Resort & Spa',         stars:5, desc:'חוף פרטי ארוך, ריזורט ענק עם כל השירותים', price:'החל מ-$195/לילה' },
+    { name:'The Ritz-Carlton Hua Hin',              stars:5, desc:'הכתובת היוקרתית ביותר בהואה-אין', price:'החל מ-$380/לילה' },
+    { name:'Dusit Thani Hua Hin',                   stars:5, desc:'ריזורט תאילנדי מסורתי על חוף שקט', price:'החל מ-$185/לילה' },
+    { name:'Hyatt Regency Hua Hin',                 stars:5, desc:'מגדל יוקרה עם נוף לים ושירות מעולה', price:'החל מ-$175/לילה' },
+    { name:'Novotel Hua Hin Cha Am Beach',          stars:4, desc:'ריזורט משפחתי גדול על חוף צ\'ה-אם', price:'החל מ-$120/לילה' },
+    { name:'Amari Hua Hin',                         stars:4, desc:'ישירות על החוף, בריכות ופעילויות לכל הגילים', price:'החל מ-$110/לילה' },
+    { name:'Mercure Hua Hin Resort',                stars:4, desc:'מרכזי ונוח, מסעדות ובריכה מושלמת', price:'החל מ-$95/לילה' },
+    { name:'Avani+ Hua Hin Resort',                 stars:5, desc:'מלון חדש ופופולרי, בריכת גג ייחודית', price:'החל מ-$155/לילה' },
+    { name:'Hua Hin Marriott Resort',               stars:5, desc:'מתחם גדול ומרשים, שירות מריוט אמין', price:'החל מ-$165/לילה' },
+    { name:'The Barai Hyatt',                       stars:5, desc:'ספא מפורסם עולמי, שהייה רפואית ורוחנית', price:'החל מ-$250/לילה' },
+    { name:'Putahracsa Resort',                     stars:4, desc:'בוטיק על החוף, עיצוב ייחודי ויחס אישי', price:'החל מ-$115/לילה' },
+    { name:'Veranda Resort & Spa Hua Hin',          stars:5, desc:'על הצוק עם תצפית מרהיבה, ריזורט שקט', price:'החל מ-$220/לילה' },
+    { name:'Baan Laksasubha Resort',                stars:4, desc:'קאבנות בסגנון תאילנדי מסורתי בגינה', price:'החל מ-$85/לילה' },
+    { name:'Malati Resort Hua Hin',                 stars:3, desc:'קרוב לשוק הלילי, ערך מצוין למשפחות', price:'החל מ-$55/לילה' },
+    { name:'Holiday Inn Resort Vana Nava',          stars:4, desc:'ישירות על פארק המים ואנאנאווה', price:'החל מ-$130/לילה' },
+    { name:'Ibis Styles Hua Hin',                   stars:3, desc:'מרכזי ומשתלם, קרוב לשוק ולחוף', price:'החל מ-$50/לילה' },
+    { name:'The Hua Hin Hills Vineyard',            stars:4, desc:'כרם ייחודי בהרים, חוויה שונה לחלוטין', price:'החל מ-$90/לילה' },
+  ],
+};
+
+// ─── CHABAD DATA ───────────────────────────────────────────────────────────
+const chabadData = {
+  'ko-samui': {
+    name: 'בית חבד קו סמוי',
+    rabbi: 'הרב מנדי גולדשמיד',
+    address: 'Chaweng Beach Moo 3, 39/8 T.Bophut, Koh Samui, Surat Thani 84320',
+    phone: '+66-81-824-0588',
+    services: 'תפילות שישי ושבת, סדרי שבת, ארוחות כשרות, עזרה לתיירים ישראלים',
+    website: 'www.jewishthailand.com',
+    note: null,
+  },
+  'ko-phangan': {
+    name: 'בית חבד קו פנגן',
+    rabbi: 'הרב דב-בר דויטש',
+    address: '20/18 Moo 8, Ko Phangan, Surat Thani 84280',
+    phone: '+66-92-761-0635',
+    services: 'קבלת שבת, ארוחות שבת, פעילויות יהודיות לאורך השבוע',
+    website: 'chabadthailand.co.il',
+    note: null,
+  },
+  'krabi': {
+    name: null,
+    note: 'אין בית חבד בקראבי. הבית הקרוב ביותר נמצא בקו סמוי — ניתן ליצור קשר עם הרב גולדשמיד בטלפון +66-81-824-0588 לסיוע ומידע על שירותים דתיים באזור קראבי.',
+  },
+  'ko-tao': {
+    name: null,
+    note: 'אין בית חבד בקו טאו. הבית הקרוב ביותר הוא בקו סמוי (+66-81-824-0588). לתיירים ישראלים ניתן לפנות גם לבית חבד קו פנגן (+66-92-761-0635).',
+  },
+  'bangkok': {
+    name: 'בית חבד בנגקוק — שני מרכזים',
+    rabbi: 'הרב נחמיה וילהלם / הרב יוסף חיים קנטור',
+    address: '① אור מנחם: 18 Phra Athit Road, Chana Songkhram, Bangkok 10200\n② קהילה יהודית: 121 Soi Sai Nam Thip 2, Sukhumvit Soi 22, Bangkok 10110',
+    phone: '① +66-2-629-2770\n② +66-2-407-9027',
+    services: 'בית כנסת, תפילות יומיות, מסעדה כשרה, מקווה, ספרייה יהודית, עזרה לתיירים',
+    website: 'www.jewishthailand.com',
+    note: null,
+  },
+  'pattaya': {
+    name: null,
+    note: 'אין בית חבד קבוע בפאטייה. הבית הקרוב ביותר הוא בבנגקוק (כ-2 שעות נסיעה). ניתן לפנות לבית חבד בנגקוק: +66-2-629-2770.',
+  },
+  'chiang-mai': {
+    name: "בית חבד צ'אנג מאי",
+    rabbi: 'הרב יוסי פיקל',
+    address: '189/15 Chang-Klan Road, בין מלון אמפרס לשנגרי-לה, Chiang Mai 50100',
+    phone: '+66-53-279-015',
+    services: "בית כנסת, מסעדה כשרה, תפילות שישי ושבת, ארוחות חג, סיורים יהודיים בצ'אנג מאי",
+    website: 'www.chabadthailand.co.il',
+    note: null,
+  },
+  'pai': {
+    name: 'בית חבד פאי',
+    rabbi: 'הרב מנחם מנדל זייאץ והרבנית חנה ליבה זייאץ',
+    address: 'Rural Road Mae Hong Son 4024, Wiang Tai, Pai District, Mae Hong Son 58130',
+    phone: '+66-65-719-5466',
+    services: 'קבלת שבת וארוחת שבת, תפילת שחרית שבת, אוכל ישראלי, אווירה ביתית חמה',
+    website: 'www.jewishthailand.com',
+    note: null,
+  },
+  'hua-hin': {
+    name: 'בית חבד הואה אין',
+    rabbi: 'הרב יוסי גולדברג',
+    address: 'הואה אין, ประจวบคีรีขันธ์ (צרו קשר לקבלת כתובת מעודכנת)',
+    phone: 'דרך בית חבד בנגקוק: +66-2-629-2770',
+    services: 'שירותי שבת וחג, עזרה לתיירים ישראלים, תפילות ביחד',
+    website: 'www.jewishthailand.com',
+    note: null,
+  },
+};
+
+// ─── STATE ─────────────────────────────────────────────────────────────────
+let currentDest = null;
+
+// ─── DOM ───────────────────────────────────────────────────────────────────
+const grid      = document.getElementById('main-grid');
+const navBar    = document.getElementById('nav-bar');
+const heroImg   = document.getElementById('hero-img');
+const heroTitle = document.getElementById('hero-title');
+const heroSub   = document.getElementById('hero-sub');
+const secTitle  = document.getElementById('section-title');
+
+// ─── NAV ───────────────────────────────────────────────────────────────────
+function renderNav(crumbs) {
+  // crumbs: [{label, onClick}]
+  if (!crumbs.length) { navBar.style.display = 'none'; return; }
+  navBar.style.display = 'flex';
+  navBar.innerHTML = crumbs.map((c, i) => {
+    const isLast = i === crumbs.length - 1;
+    if (isLast) return `<span class="nav-current">${c.label}</span>`;
+    return `<button class="back-btn" data-i="${i}">${c.label}</button><span class="nav-sep">›</span>`;
+  }).join('');
+  navBar.querySelectorAll('.back-btn').forEach(btn => {
+    const i = +btn.dataset.i;
+    btn.addEventListener('click', crumbs[i].onClick);
+  });
+}
+
+// ─── CARD BUILDERS ─────────────────────────────────────────────────────────
+function makeCard(imgSrc, iconHtml, title, subtitle, onClick) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <img src="${imgSrc}" alt="${title}" loading="lazy" />
+    <div class="card-label">
+      ${iconHtml ? `<div class="icon">${iconHtml}</div>` : ''}
+      <h3>${title}</h3>
+      ${subtitle ? `<span>${subtitle}</span>` : ''}
+    </div>`;
+  card.addEventListener('click', onClick);
+  return card;
+}
+
+function makeHotelCard(hotel, imgSrc) {
+  const card = document.createElement('div');
+  card.className = 'hotel-card';
+  const stars = '★'.repeat(hotel.stars) + '☆'.repeat(5 - hotel.stars);
+  card.innerHTML = `
+    <div class="hotel-img-wrap">
+      <img src="${imgSrc}" alt="${hotel.name}" loading="lazy" />
+    </div>
+    <div class="hotel-info">
+      <div class="hotel-name">${hotel.name}</div>
+      <div class="hotel-stars">${stars}</div>
+      <div class="hotel-desc">${hotel.desc}</div>
+      <div class="hotel-price">${hotel.price}</div>
+    </div>`;
+  return card;
+}
+
+// ─── VIEWS ─────────────────────────────────────────────────────────────────
+function showHome() {
+  currentDest = null;
+  heroImg.src = 'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=2560&q=90';
+  heroTitle.textContent = '🇹🇭 תאילנד';
+  heroSub.textContent   = 'ארץ החיוכים — גלו את פלאי הממלכה';
+  secTitle.textContent  = 'יעדים מובילים';
+  renderNav([]);
+
+  grid.className = 'grid dest-grid fade-in';
+  grid.innerHTML = '';
+  destinations.forEach(dest =>
+    grid.appendChild(makeCard(dest.img, null, dest.name, dest.sub, () => showDest(dest)))
+  );
+
+  // קוביית ביטוח נסיעות
+  const insuranceCard = document.createElement('div');
+  insuranceCard.className = 'card insurance-card';
+  insuranceCard.innerHTML = `
+    <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=85" alt="ביטוח נסיעות" loading="lazy" />
+    <div class="card-label">
+      <div class="icon">🛡️</div>
+      <h3>השוואת מחירים — ביטוח נסיעות</h3>
+      <span>מצאו את הכיסוי הטוב ביותר לתאילנד</span>
+    </div>`;
+  insuranceCard.addEventListener('click', () => showInsurance());
+  grid.appendChild(insuranceCard);
+}
+
+function showDest(dest) {
+  currentDest = dest;
+  heroImg.src = dest.hero;
+  heroTitle.textContent = dest.name;
+  heroSub.textContent   = dest.sub;
+  secTitle.textContent  = `מה לעשות ב${dest.name}?`;
+  renderNav([
+    { label: '🏠 יעדים', onClick: showHome },
+    { label: dest.name },
+  ]);
+
+  const noBeach = ['bangkok', 'pai', 'chiang-mai'];
+  grid.className = 'grid cat-grid fade-in';
+  grid.innerHTML = '';
+  categories.filter(cat => !(cat.key === 'beaches' && noBeach.includes(dest.id))).forEach(cat => {
+    const handler = cat.key === 'hotels'  ? () => showHotelTypes(dest)
+                 : cat.key === 'chabad'   ? () => showChabad(dest)
+                 : () => alert(`בקרוב: ${cat.name} ב${dest.name}`);
+    grid.appendChild(makeCard(categoryImages[cat.key], cat.icon, cat.name, cat.sub, handler));
+  });
+}
+
+function showHotelTypes(dest) {
+  heroImg.src = dest.hero;
+  heroTitle.textContent = `מלונות ב${dest.name}`;
+  heroSub.textContent   = 'בחרו את סוג השהייה המושלמת עבורכם';
+  secTitle.textContent  = 'מלונות מומלצים — לפי סוג נוסע';
+  renderNav([
+    { label: '🏠 יעדים', onClick: showHome },
+    { label: dest.name, onClick: () => showDest(dest) },
+    { label: '🏨 מלונות' },
+  ]);
+
+  grid.className = 'grid cat-grid fade-in';
+  grid.innerHTML = '';
+  hotelTypes.forEach(type => {
+    const handler = type.key === 'families'
+      ? () => showFamilyHotels(dest)
+      : () => alert(`בקרוב: מלונות ל${type.name} ב${dest.name}`);
+    grid.appendChild(makeCard(type.img, type.icon, type.name, type.sub, handler));
+  });
+}
+
+function showFamilyHotels(dest) {
+  heroImg.src = dest.hero;
+  heroTitle.textContent = `מלונות משפחתיים ב${dest.name}`;
+  heroSub.textContent   = '20 מלונות מומלצים למשפחות';
+  secTitle.textContent  = `👨‍👩‍👧‍👦 מלונות למשפחות — ${dest.name}`;
+  renderNav([
+    { label: '🏠 יעדים', onClick: showHome },
+    { label: dest.name, onClick: () => showDest(dest) },
+    { label: '🏨 מלונות', onClick: () => showHotelTypes(dest) },
+    { label: '👨‍👩‍👧‍👦 משפחות' },
+  ]);
+
+  const hotels = familyHotels[dest.id] || [];
+  const imgPool = hotelImgs[destImgType[dest.id]] || hotelImgs.beach;
+  grid.className = 'grid hotel-grid fade-in';
+  grid.innerHTML = '';
+  hotels.forEach((hotel, i) => {
+    const img = imgPool[i % imgPool.length];
+    grid.appendChild(makeHotelCard(hotel, img));
+  });
+}
+
+function showChabad(dest) {
+  const data = chabadData[dest.id];
+  heroImg.src = dest.hero;
+  heroTitle.textContent = `🕍 בית חבד — ${dest.name}`;
+  heroSub.textContent   = 'קהילה יהודית ואירוח ישראלי';
+  secTitle.textContent  = `בית חבד ב${dest.name}`;
+  renderNav([
+    { label: '🏠 יעדים', onClick: showHome },
+    { label: dest.name, onClick: () => showDest(dest) },
+    { label: '🕍 בית חבד' },
+  ]);
+
+  grid.className = 'fade-in';
+  grid.style.display = '';
+  grid.innerHTML = '';
+
+  if (!data || !data.name) {
+    grid.innerHTML = `<div class="chabad-no">
+      <div style="font-size:3rem;margin-bottom:16px;">🕍</div>
+      <strong>אין בית חבד ב${dest.name}</strong><br/><br/>
+      ${data ? data.note : ''}
+    </div>`;
+    return;
+  }
+
+  const rows = [
+    { label: '👨‍💼 רב',      value: data.rabbi },
+    { label: '📍 כתובת',   value: data.address.replace(/\n/g, '<br/>') },
+    { label: '📞 טלפון',   value: data.phone.split('\n').map(p =>
+        `<a href="tel:${p.replace(/\s/g,'')}">${p}</a>`).join('<br/>') },
+    { label: '🍽️ שירותים', value: data.services },
+    { label: '🌐 אתר',     value: `<a href="https://${data.website}" target="_blank">${data.website}</a>` },
+  ];
+
+  grid.innerHTML = `
+    <div class="chabad-card">
+      <div class="chabad-header">
+        <div class="chabad-icon">🕍</div>
+        <div>
+          <div class="chabad-title">${data.name}</div>
+          <div class="chabad-subtitle">בית חבד לובביץ' — תאילנד</div>
+        </div>
+      </div>
+      ${rows.map(r => `
+        <div class="chabad-row">
+          <div class="label">${r.label}</div>
+          <div class="value">${r.value}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function showInsurance() {
+  heroImg.src = 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=2560&q=90';
+  heroTitle.textContent = '🛡️ ביטוח נסיעות לתאילנד';
+  heroSub.textContent   = 'השוו מחירים ובחרו את הכיסוי המתאים לכם';
+  secTitle.textContent  = 'חברות ביטוח מומלצות';
+  renderNav([
+    { label: '🏠 יעדים', onClick: showHome },
+    { label: '🛡️ ביטוח נסיעות' },
+  ]);
+
+  const companies = [
+    { name:'כלל ביטוח',        sub:'כיסוי רפואי עד $2M, ספורט אתגרי, ביטול טיסה', price:'החל מ-₪18/יום', color:'#e74c3c', img:'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80' },
+    { name:'מגדל ביטוח',       sub:'כיסוי מקיף לכל המשפחה, הנחה לרב-שנתי',         price:'החל מ-₪15/יום', color:'#e67e22', img:'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80' },
+    { name:'הראל ביטוח',       sub:'פוליסה מיוחדת לתאילנד, כולל קורס צלילה',        price:'החל מ-₪20/יום', color:'#3498db', img:'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80' },
+    { name:'AIG ישראל',        sub:'ביטוח בינלאומי מוביל, שירות 24/7 בעברית',       price:'החל מ-₪22/יום', color:'#2ecc71', img:'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&q=80' },
+    { name:'שירביט ביטוח',     sub:'מחיר נמוך, כיסוי בסיסי מצוין לטיולי חוף',      price:'החל מ-₪12/יום', color:'#9b59b6', img:'https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=600&q=80' },
+    { name:'איילון ביטוח',     sub:'מתאים לטיולים ארוכים מעל חודש, גמיש',           price:'החל מ-₪14/יום', color:'#1abc9c', img:'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80' },
+    { name:'ביטוח ישיר',       sub:'הכל אונליין, תביעות דיגיטליות מהירות',          price:'החל מ-₪16/יום', color:'#e74c3c', img:'https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=600&q=80' },
+    { name:'מנורה מבטחים',     sub:'כיסוי פינוי רפואי ומסוק גם לאיים מרוחקים',      price:'החל מ-₪19/יום', color:'#f39c12', img:'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80' },
+  ];
+
+  grid.className = 'grid hotel-grid fade-in';
+  grid.innerHTML = '';
+
+  companies.forEach(co => {
+    const card = document.createElement('div');
+    card.className = 'hotel-card';
+    card.style.cursor = 'default';
+    card.innerHTML = `
+      <div class="hotel-img-wrap">
+        <img src="${co.img}" alt="${co.name}" loading="lazy" />
+        <div style="position:absolute;top:12px;right:12px;background:${co.color};color:#fff;font-weight:700;font-size:0.8rem;padding:4px 12px;border-radius:20px;">${co.name}</div>
+      </div>
+      <div class="hotel-info">
+        <div class="hotel-name">${co.name}</div>
+        <div class="hotel-desc">${co.sub}</div>
+        <div class="hotel-price" style="font-size:1rem;">${co.price}</div>
+        <button onclick="alert('בקרוב: מעבר לאתר ${co.name}')"
+          style="margin-top:10px;width:100%;padding:9px;background:#f9c74f;color:#0d1117;font-weight:700;border:none;border-radius:8px;cursor:pointer;font-size:0.9rem;">
+          לפרטים ורכישה &larr;
+        </button>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
+showHome();
+</script>
+</body>
+</html>
