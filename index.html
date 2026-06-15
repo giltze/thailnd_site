@@ -249,6 +249,70 @@ const categoryImages = {
   laundry: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=800&q=85',
 };
 
+// תמונות ספציפיות לפי יעד + קטגוריה
+const destCategoryImages = {
+  'ko-samui': {
+    hotels:  'https://images.unsplash.com/photo-1540541338537-1220a3e80972?w=800&q=85',
+    markets: 'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=800&q=85',
+    beaches: 'https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=85',
+    attract: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85',
+    howto:   'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85',
+  },
+  'ko-phangan': {
+    hotels:  'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=85',
+    markets: 'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=800&q=85',
+    beaches: 'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=85',
+    attract: 'https://images.unsplash.com/photo-1533760881669-80db4d7b341c?w=800&q=85',
+    howto:   'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85',
+  },
+  'krabi': {
+    hotels:  'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=85',
+    markets: 'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=800&q=85',
+    beaches: 'https://images.unsplash.com/photo-1548366086-7f1b76106622?w=800&q=85',
+    attract: 'https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=85',
+    howto:   'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85',
+  },
+  'ko-tao': {
+    hotels:  'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=85',
+    markets: 'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=800&q=85',
+    beaches: 'https://images.unsplash.com/photo-1596521535370-57ccbf5b2b48?w=800&q=85',
+    attract: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85',
+    howto:   'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=85',
+  },
+  'bangkok': {
+    hotels:  'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=85',
+    markets: 'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=85',
+    attract: 'https://images.unsplash.com/photo-1598935898639-81586f7d2129?w=800&q=85',
+    howto:   'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=85',
+  },
+  'pattaya': {
+    hotels:  'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=85',
+    markets: 'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=800&q=85',
+    beaches: 'https://images.unsplash.com/photo-1655714853399-5735b457a25b?w=800&q=85',
+    attract: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85',
+    howto:   'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=85',
+  },
+  'chiang-mai': {
+    hotels:  'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=800&q=85',
+    markets: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=85',
+    attract: 'https://images.unsplash.com/photo-1512553979952-300e43386f03?w=800&q=85',
+    howto:   'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=85',
+  },
+  'pai': {
+    hotels:  'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&q=85',
+    markets: 'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=800&q=85',
+    attract: 'https://images.unsplash.com/photo-1611855836637-57499c2f4e55?w=800&q=85',
+    howto:   'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=85',
+  },
+  'hua-hin': {
+    hotels:  'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800&q=85',
+    markets: 'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=800&q=85',
+    beaches: 'https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=800&q=85',
+    attract: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85',
+    howto:   'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=85',
+  },
+};
+
 const categories = [
   { key:'hotels',  icon:'🏨', name:'מלונות מומלצים',  sub:'המקומות הטובים ביותר לישון' },
   { key:'markets', icon:'🛍️', name:'שווקים',           sub:'קניות, אוכל ואווירה' },
@@ -730,7 +794,8 @@ function showDest(dest) {
     const handler = cat.key === 'hotels'  ? () => showHotelTypes(dest)
                  : cat.key === 'chabad'   ? () => showChabad(dest)
                  : () => alert(`בקרוב: ${cat.name} ב${dest.name}`);
-    grid.appendChild(makeCard(categoryImages[cat.key], cat.icon, cat.name, cat.sub, handler));
+    const img = (destCategoryImages[dest.id] && destCategoryImages[dest.id][cat.key]) || categoryImages[cat.key];
+    grid.appendChild(makeCard(img, cat.icon, cat.name, cat.sub, handler));
   });
 }
 
