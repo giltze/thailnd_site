@@ -692,27 +692,32 @@ const chabadData = {
 const AGODA_SITE_ID = '1925990';
 const AGODA_API_KEY = '81c5cba9-907c-4bf8-9891-9f8500a0b60c';
 
-// Agoda city IDs for each destination
-const agodaCityIds = {
-  'ko-samui':   3641,
-  'ko-phangan': 3642,
-  'krabi':      14317,
-  'ko-tao':     14319,
-  'bangkok':    14300,
-  'pattaya':    14346,
-  'chiang-mai': 14332,
-  'pai':        15219,
-  'hua-hin':    14311,
+// Agoda city page slugs
+const agodaCitySlugs = {
+  'ko-samui':   'koh-samui-th.html',
+  'ko-phangan': 'koh-pha-ngan-th.html',
+  'krabi':      'krabi-th.html',
+  'ko-tao':     'koh-tao-th.html',
+  'bangkok':    'bangkok-th.html',
+  'pattaya':    'pattaya-th.html',
+  'chiang-mai': 'chiang-mai-th.html',
+  'pai':        'pai-th.html',
+  'hua-hin':    'hua-hin-th.html',
 };
 
-function agodaUrl(hotelName, cityId) {
-  return `https://www.agoda.com/partners/partnersearch.aspx?site_id=${AGODA_SITE_ID}&pcs=1&city=${cityId}&hotel_name=${encodeURIComponent(hotelName)}`;
+// still needed for fallback fetch
+const agodaCityIds = {
+  'ko-samui':3641,'ko-phangan':3642,'krabi':14317,'ko-tao':14319,
+  'bangkok':14300,'pattaya':14346,'chiang-mai':14332,'pai':15219,'hua-hin':14311,
+};
+
+function agodaUrl(hotelName, destId) {
+  const slug = agodaCitySlugs[destId] || 'thailand.html';
+  return `https://www.agoda.com/city/${slug}?site_id=${AGODA_SITE_ID}&hotel_name=${encodeURIComponent(hotelName)}`;
 }
-function agodaCityUrl(cityId) {
-  const today = new Date();
-  const ci = today.toISOString().split('T')[0];
-  const co = new Date(today.getTime()+86400000*7).toISOString().split('T')[0];
-  return `https://www.agoda.com/partners/partnersearch.aspx?site_id=${AGODA_SITE_ID}&pcs=1&city=${cityId}&checkIn=${ci}&checkOut=${co}&rooms=1&adults=2`;
+function agodaCityUrl(destId) {
+  const slug = agodaCitySlugs[destId] || 'thailand.html';
+  return `https://www.agoda.com/city/${slug}?site_id=${AGODA_SITE_ID}`;
 }
 
 async function fetchAgodaHotels(destId) {
@@ -886,7 +891,7 @@ function showFamilyHotels(dest) {
   ]);
 
   const cityId = agodaCityIds[dest.id];
-  const agodaSearchUrl = agodaCityUrl(cityId);
+  const agodaSearchUrl = agodaCityUrl(dest.id);
   const hotels = familyHotels[dest.id] || [];
 
   grid.className = 'fade-in';
@@ -922,7 +927,7 @@ function showFamilyHotels(dest) {
   hotels.forEach(h => {
     const stars = '★'.repeat(h.stars) + '☆'.repeat(5 - h.stars);
     const row = document.createElement('a');
-    row.href = agodaUrl(h.name, cityId);
+    row.href = agodaUrl(h.name, dest.id);
     row.target = '_blank';
     row.rel = 'noopener';
     row.style.cssText = 'display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 20px;text-decoration:none;color:inherit;box-shadow:0 2px 8px rgba(0,0,0,0.06);';
