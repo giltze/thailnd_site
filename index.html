@@ -1064,14 +1064,11 @@ function showDest(dest) {
   });
 }
 
-async function fetchWikiImage(articleTitle) {
-  try {
-    const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(articleTitle)}`;
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data.thumbnail?.source || null;
-  } catch { return null; }
+function attractionImgUrl(attractionName, destName) {
+  // strip parenthetical suffixes and clean up for search
+  const clean = attractionName.replace(/\s*\([^)]*\)/g, '').trim();
+  const query = encodeURIComponent(clean + ' ' + destName + ' Thailand');
+  return `https://source.unsplash.com/featured/600x400/?${query}`;
 }
 
 function showAttractions(dest) {
@@ -1098,7 +1095,7 @@ function showAttractions(dest) {
     imgWrap.className = 'hotel-img-wrap';
     imgWrap.style.background = '#e8e8e8';
     const img = document.createElement('img');
-    img.src = a.img;
+    img.src = attractionImgUrl(a.name, dest.name);
     img.alt = a.name;
     img.loading = 'lazy';
     img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
@@ -1129,12 +1126,6 @@ function showAttractions(dest) {
     card.appendChild(imgWrap);
     card.appendChild(info);
     grid.appendChild(card);
-
-    // טעינת תמונת ויקיפדיה אסינכרונית
-    const wikiTitle = a.wiki || a.name;
-    fetchWikiImage(wikiTitle).then(src => {
-      if (src) img.src = src;
-    });
   });
 }
 
