@@ -712,12 +712,12 @@ const agodaCityIds = {
 };
 
 function agodaUrl(hotelName, destId) {
-  const slug = agodaCitySlugs[destId] || 'thailand.html';
-  return `https://www.agoda.com/city/${slug}?site_id=${AGODA_SITE_ID}&hotel_name=${encodeURIComponent(hotelName)}`;
+  const cityId = agodaCityIds[destId];
+  return `https://www.agoda.com/search?city=${cityId}&q=${encodeURIComponent(hotelName)}&site_id=${AGODA_SITE_ID}`;
 }
 function agodaCityUrl(destId) {
-  const slug = agodaCitySlugs[destId] || 'thailand.html';
-  return `https://www.agoda.com/city/${slug}?site_id=${AGODA_SITE_ID}`;
+  const cityId = agodaCityIds[destId];
+  return `https://www.agoda.com/search?city=${cityId}&site_id=${AGODA_SITE_ID}`;
 }
 
 async function fetchAgodaHotels(destId) {
