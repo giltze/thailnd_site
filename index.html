@@ -880,55 +880,80 @@ function showFamilyHotels(dest) {
   ]);
 
   const cityId = agodaCityIds[dest.id];
-  const agodaSearchUrl = `https://www.agoda.com/search?city=${cityId}&filters=5&site_id=${AGODA_SITE_ID}&tag=thailand-site`;
+  const agodaSearchUrl = `https://www.agoda.com/search?city=${cityId}&site_id=${AGODA_SITE_ID}`;
   const hotels = familyHotels[dest.id] || [];
 
   grid.className = 'fade-in';
-  grid.innerHTML = `
-    <div style="max-width:680px;margin:0 auto 40px;">
-      <a href="${agodaSearchUrl}" target="_blank" rel="noopener"
-         style="display:flex;align-items:center;justify-content:space-between;
-                background:#e5472d;color:#fff;padding:20px 28px;border-radius:16px;
-                text-decoration:none;font-size:1.1rem;font-weight:700;
-                box-shadow:0 4px 20px rgba(229,71,45,0.35);transition:opacity 0.2s;"
-         onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-        <span>🔍 חפש מלונות משפחתיים ב${dest.name}</span>
-        <span style="font-size:1.5rem;">←</span>
-      </a>
-      <p style="text-align:center;margin-top:12px;color:#888;font-size:0.85rem;">
-        תמונות אמיתיות · מחירים עדכניים · הזמנה מאובטחת
-      </p>
-    </div>
+  grid.innerHTML = '';
 
-    <div style="border-top:1px solid #e5e5e5;padding-top:32px;">
-      <h3 style="text-align:center;margin-bottom:24px;font-size:1.1rem;color:#555;">
-        מלונות מומלצים — לחץ להזמנה באגודה
-      </h3>
-      <div style="display:flex;flex-direction:column;gap:12px;max-width:780px;margin:0 auto;">
-        ${hotels.map(h => {
-          const stars = '★'.repeat(h.stars) + '☆'.repeat(5 - h.stars);
-          const url = agodaUrl(h.name);
-          return `
-            <a href="${url}" target="_blank" rel="noopener"
-               style="display:flex;justify-content:space-between;align-items:center;
-                      background:#fff;border:1px solid #e8e8e8;border-radius:12px;
-                      padding:16px 20px;text-decoration:none;color:inherit;
-                      box-shadow:0 2px 8px rgba(0,0,0,0.06);transition:box-shadow 0.2s;"
-               onmouseover="this.style.boxShadow='0 4px 16px rgba(229,71,45,0.15)'"
-               onmouseout="this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'">
-              <div style="flex:1;">
-                <div style="font-weight:700;font-size:0.95rem;color:#1a1a2e;">${h.name}</div>
-                <div style="color:#d4a017;font-size:0.8rem;margin:3px 0;">${stars}</div>
-                <div style="font-size:0.78rem;color:#777;">${h.desc}</div>
-              </div>
-              <div style="text-align:left;margin-right:16px;flex-shrink:0;">
-                <div style="color:#16a34a;font-weight:700;font-size:0.9rem;">${h.price}</div>
-                <div style="color:#e5472d;font-size:0.78rem;margin-top:4px;">הזמן ←</div>
-              </div>
-            </a>`;
-        }).join('')}
-      </div>
-    </div>`;
+  // כפתור חיפוש ראשי
+  const searchWrap = document.createElement('div');
+  searchWrap.style.cssText = 'max-width:680px;margin:0 auto 40px;';
+  const searchBtn = document.createElement('a');
+  searchBtn.href = agodaSearchUrl;
+  searchBtn.target = '_blank';
+  searchBtn.rel = 'noopener';
+  searchBtn.style.cssText = 'display:flex;align-items:center;justify-content:space-between;background:#e5472d;color:#fff;padding:20px 28px;border-radius:16px;text-decoration:none;font-size:1.1rem;font-weight:700;box-shadow:0 4px 20px rgba(229,71,45,0.35);';
+  searchBtn.innerHTML = `<span>🔍 חפש מלונות משפחתיים ב${dest.name}</span><span style="font-size:1.5rem;">←</span>`;
+  const searchNote = document.createElement('p');
+  searchNote.style.cssText = 'text-align:center;margin-top:12px;color:#888;font-size:0.85rem;';
+  searchNote.textContent = 'תמונות אמיתיות · מחירים עדכניים · הזמנה מאובטחת';
+  searchWrap.appendChild(searchBtn);
+  searchWrap.appendChild(searchNote);
+  grid.appendChild(searchWrap);
+
+  // רשימת מלונות
+  const listWrap = document.createElement('div');
+  listWrap.style.cssText = 'border-top:1px solid #e5e5e5;padding-top:32px;';
+  const listTitle = document.createElement('h3');
+  listTitle.style.cssText = 'text-align:center;margin-bottom:24px;font-size:1.1rem;color:#555;';
+  listTitle.textContent = 'מלונות מומלצים — לחץ להזמנה באגודה';
+  listWrap.appendChild(listTitle);
+
+  const list = document.createElement('div');
+  list.style.cssText = 'display:flex;flex-direction:column;gap:12px;max-width:780px;margin:0 auto;';
+
+  hotels.forEach(h => {
+    const stars = '★'.repeat(h.stars) + '☆'.repeat(5 - h.stars);
+    const row = document.createElement('a');
+    row.href = `https://www.agoda.com/search?hotel=${encodeURIComponent(h.name)}&city=${cityId}&site_id=${AGODA_SITE_ID}`;
+    row.target = '_blank';
+    row.rel = 'noopener';
+    row.style.cssText = 'display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 20px;text-decoration:none;color:inherit;box-shadow:0 2px 8px rgba(0,0,0,0.06);';
+
+    const info = document.createElement('div');
+    info.style.flex = '1';
+    const name = document.createElement('div');
+    name.style.cssText = 'font-weight:700;font-size:0.95rem;color:#1a1a2e;';
+    name.textContent = h.name;
+    const starsEl = document.createElement('div');
+    starsEl.style.cssText = 'color:#d4a017;font-size:0.8rem;margin:3px 0;';
+    starsEl.textContent = stars;
+    const desc = document.createElement('div');
+    desc.style.cssText = 'font-size:0.78rem;color:#777;';
+    desc.textContent = h.desc;
+    info.appendChild(name);
+    info.appendChild(starsEl);
+    info.appendChild(desc);
+
+    const priceWrap = document.createElement('div');
+    priceWrap.style.cssText = 'text-align:left;margin-right:16px;flex-shrink:0;';
+    const price = document.createElement('div');
+    price.style.cssText = 'color:#16a34a;font-weight:700;font-size:0.9rem;';
+    price.textContent = h.price;
+    const book = document.createElement('div');
+    book.style.cssText = 'color:#e5472d;font-size:0.78rem;margin-top:4px;';
+    book.textContent = 'הזמן ←';
+    priceWrap.appendChild(price);
+    priceWrap.appendChild(book);
+
+    row.appendChild(info);
+    row.appendChild(priceWrap);
+    list.appendChild(row);
+  });
+
+  listWrap.appendChild(list);
+  grid.appendChild(listWrap);
 }
 
 function showChabad(dest) {
