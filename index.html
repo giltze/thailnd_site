@@ -688,6 +688,212 @@ const chabadData = {
   },
 };
 
+// ─── ATTRACTIONS ───────────────────────────────────────────────────────────
+const attractionsData = {
+  'ko-samui': [
+    { name:'Big Buddha (Wat Phra Yai)',       desc:'פסל בודהה ענק בגובה 12 מטר — הסמל הכי מזוהה של קו סמוי',              img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+    { name:'Ang Thong Marine National Park',  desc:'ארכיפלג מדהים של 42 איים — שנורקלינג, קייאקינג ונופים אגדיים',        img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Chaweng Beach',                   desc:'החוף הכי פופולרי באי — מים טורקיז, בארים וחיי לילה תוססים',            img:'https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=600&q=80' },
+    { name:'Na Muang Waterfall',              desc:'שני מפלים טבעיים בתוך יער טרופי — שחייה וטרקים ירוקים',               img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Hin Ta Hin Yai (Grandparent Rocks)', desc:'סלעים טבעיים בצורות מיוחדות — אחת האטרקציות המצחיקות באי',        img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:"Fisherman's Village Bo Phut",     desc:'כפר דייגים קסום עם חנויות בוטיק, מסעדות ושוק שישי לילי',             img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Wat Plai Laem',                   desc:'מקדש מרהיב על מים עם פסל גואנין בעל 18 ידיים',                         img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Samui Elephant Sanctuary',        desc:'מקלט אתי לפילים — להאכיל ולרחוץ פילים בסביבה טבעית',                 img:'https://images.unsplash.com/photo-1581726707445-75cbe4efc586?w=600&q=80' },
+    { name:'Secret Buddha Garden',            desc:'גן פסלים מסתורי בהרים — הרפתקה עם אופנוע ונוף לאי',                  img:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80' },
+    { name:'Lamai Beach',                     desc:'החוף השני בגודלו — שקט יותר מצ\'אוונג, עם בארים ואווירה נינוחה',      img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Maenam Beach',                    desc:'חוף ארוך ושקט בצפון האי — מושלם למשפחות ולזוגות',                      img:'https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=600&q=80' },
+    { name:'Choeng Mon Beach',                desc:'מפרץ קטן ושקט עם מים צלולים — הנסתר הכי יפה בסמוי',                  img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80' },
+    { name:'Samui Night Market (Nathon)',     desc:'שוק לילי אותנטי עם אוכל תאילנדי ומחירים מקומיים',                     img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&q=80' },
+    { name:'Namuang Safari Park',             desc:'ג\'ונגל טיול על גב פיל, זיפליין ומופעי פילים',                         img:'https://images.unsplash.com/photo-1581726707445-75cbe4efc586?w=600&q=80' },
+    { name:'Koh Fan (Five Islands)',          desc:'5 איים קטנים לשנורקלינג וצלילה — יצירת טבע נדירה',                    img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Crystal Bay',                     desc:'מפרץ שקוף כבדולח עם אלמוגים וצבי ים — הגן העדן הסודי',               img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Wat Khunaram (Mummy Monk)',       desc:'מקדש עם נזיר מומיפיקציה — חוויה מיסטית ובלתי נשכחת',                 img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Samui Butterfly Garden',          desc:'גן פרפרים קסום עם מאות מינים צבעוניים',                               img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Cape Yamu Viewpoint',             desc:'תצפית פנורמית לאיים הסמוכים — שקיעות מרהיבות',                        img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Koh Samui Aquarium',              desc:'אקווריום גדול עם מגוון דגים טרופיים ומופעי כרישים',                   img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+  ],
+  'ko-phangan': [
+    { name:'Haad Rin Beach (Full Moon Party)', desc:'החוף האגדי שמארח את המסיבה הכי גדולה בתאילנד — 30,000 איש',          img:'https://images.unsplash.com/photo-1533760881669-80db4d7b341c?w=600&q=80' },
+    { name:'Thaan Sadet Waterfall',           desc:'מפל היסטורי שהמלכים התאילנדים אהבו — שחייה בבריכות טבעיות',           img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Bottle Beach (Haad Khuat)',       desc:'חוף מבודד שנגיש רק בסירה — אחד היפים בתאילנד',                        img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80' },
+    { name:'Haad Yao Beach',                  desc:'חוף שקט וירוק עם מים צלולים — פחות תיירים יותר שקט',                  img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Phaeng Waterfall',                desc:'המפל הכי גדול בקו פנגן — מסלול טרק ביער טרופי',                       img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Haad Salad Beach',                desc:'מפרץ ירקרק שקט — שנורקלינג מעולה ואלמוגים מרהיבים',                   img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Ko Phangan Weekend Market',       desc:'שוק סוף שבוע עם אוכל רחוב, בגדים ואומנות מקומית',                    img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&q=80' },
+    { name:'Wat Phu Khao Noi',               desc:'המקדש הקדום ביותר בפנגן — תצפית נהדרת לאי',                           img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Mae Haad Bay & Sandbar',          desc:'שרשרת חול לבן מחברת שני איים בשפל הגאות — קסום',                      img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80' },
+    { name:'Haad Tien Beach',                 desc:'חוף מבודד בדרום האי — נגיש רק בסירה, שקט מוחלט',                     img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Haad Son (Secret Beach)',         desc:'חוף סודי בצפון — שחייה בין סלעים ואלמוגים בצבעי קשת',                img:'https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=600&q=80' },
+    { name:'Wok Tum Bay Viewpoint',           desc:'תצפית פנורמית לכל מפרץ תאילנד — שקיעה מדהימה',                       img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Haad Chao Phao Beach',            desc:'חוף זריחה קסום עם בארים על החוף ואווירה מדיטטיבית',                   img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80' },
+    { name:'Namtok Than Prawet',             desc:'מפל ג\'ונגל נסתר עם בריכות שחייה קרירות',                              img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Thong Sala Night Market',         desc:'השוק הלילי הכי עשיר בפנגן — אוכל, מוסיקה ואנרגיה',                   img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&q=80' },
+    { name:'Yoga & Wellness Retreat',        desc:'מרכזי יוגה ומדיטציה בקרב הטבע — ריטריטים שבועיים',                    img:'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80' },
+    { name:'Koh Ma Island',                  desc:'אי קטן מחובר בגשר חול — שנורקלינג מושלם עם דגי צבע',                 img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Haad Rin Nok (Sunrise Beach)',   desc:'חוף הזריחה של הד-רין — שקט בשעות הבוקר, תוסס בלילה',                 img:'https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=600&q=80' },
+    { name:'Bamboo Bungalows Area',          desc:'אזור הבקתות האגדי בחוף ש\'אלוק — אווירה מחזירה לטבע',                 img:'https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=600&q=80' },
+    { name:'Phangan Cabaret Show',           desc:'מופע לאדי-בוי מרהיב — אמנות, צבע ובידור ישראלי',                      img:'https://images.unsplash.com/photo-1533760881669-80db4d7b341c?w=600&q=80' },
+  ],
+  'krabi': [
+    { name:'Railay Beach',                   desc:'חוף מדהים שנגיש רק בסירה — מוקף צוקי גיר אייקוניים',                  img:'https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=600&q=80' },
+    { name:'Tiger Cave Temple (Wat Tham Seua)', desc:'1,237 מדרגות לפסגה — תצפית פנורמית מדהימה על קראבי',               img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Phi Phi Islands Tour',           desc:'האיים הכי יפים בתאילנד — מים אזוריים, מפרצים וצוקים',                 img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Maya Bay',                       desc:'המפרץ האגדי מהסרט "The Beach" עם ג\'ון — פתוח מחדש!',                  img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80' },
+    { name:'Ao Nang Beach',                  desc:'מרכז התיירות של קראבי — חופים, מסעדות ושירותי סירות',                  img:'https://images.unsplash.com/photo-1548366086-7f1b76106622?w=600&q=80' },
+    { name:'Four Islands Tour',              desc:'סיור ליום שלם ב-4 איים — Tup, Chicken, Poda ו-Cave Island',            img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Khlong Thom Hot Springs',        desc:'מעיינות חמים טבעיים בג\'ונגל — חוויה מרגיעה ומרפאת',                  img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Crystal Pool (Thung Teao Park)', desc:'בריכת מים קרים וצלולים כבדולח בלב יער טרופי',                         img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Dragon Crest Mountain Hike',     desc:'טרק מאתגר עם תצפית עוצרת נשימה — הגשש הכי שווה בקראבי',              img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Rock Climbing at Railay',        desc:'קראבי היא בירת הטיפוס — מאות מסלולים על צוקי הגיר',                   img:'https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=600&q=80' },
+    { name:'Kayaking in Ao Thalane',         desc:'קייאקינג בין מנגרובים — טבע פראי ושקט מושלם',                         img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Krabi Night Market',             desc:'שוק לילי אותנטי עם אוכל רחוב תאילנדי ואווירה מקומית',                 img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&q=80' },
+    { name:'Pranang Cave Beach',             desc:'חוף מפורסם עם מערה ומקדש עם פסלי פריון — גישה בסירה',                 img:'https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=600&q=80' },
+    { name:'Emerald Cave (Tham Morakot)',    desc:'שחייה דרך מנהרה אפלה לחוף נסתר בתוך הסלע',                            img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Koh Lanta Day Trip',             desc:'יום באי לנטה — חופים שקטים, כפר ישן וטבע עשיר',                       img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80' },
+    { name:'Bamboo Island Snorkeling',       desc:'אי במבוק עם שנורקלינג מצוין ומים שקופים לחלוטין',                     img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Krabi Town Walking Street',      desc:'שוק הליכה בסוף שבוע עם אוכל, אומנות ומוסיקה חיה',                     img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Sunset Cruise from Ao Nang',     desc:'שייט שקיעה עם אוכל ומשקאות — הנוף הכי רומנטי בקראבי',                img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Klong Muang Beach',              desc:'חוף מבודד ונקי מהמון — מושלם לשקט ולשחייה',                           img:'https://images.unsplash.com/photo-1548366086-7f1b76106622?w=600&q=80' },
+    { name:'Elephant Trekking Krabi',        desc:'רכיבה על פילים דרך יערות הקראבי — חוויה בלתי נשכחת',                  img:'https://images.unsplash.com/photo-1581726707445-75cbe4efc586?w=600&q=80' },
+  ],
+  'ko-tao': [
+    { name:'Koh Nang Yuan Island',           desc:'3 איים מחוברים בחולות לבנים — אחד הנופים הכי מצולמים בתאילנד',       img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Japanese Gardens (Diving)',      desc:'אתר צלילה רדוד עם גן אלמוגים מדהים — מושלם למתחילים',                img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Chumphon Pinnacle',              desc:'צלילה מתקדמת — עמוד סלע ענק עם כרישים לוטפינים ולוייתנונים',         img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'HTMS Sattakut Wreck',            desc:'ספינת מלחמה שהוטבעה בכוונה — צלילה אייקונית בקו טאו',                img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Shark Bay (Haad Tien)',          desc:'חוף שחיים בו כרישי שפן — שנורקלינג עם כרישים לא מסוכנים',            img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Sairee Beach',                   desc:'החוף הראשי של האי — בארים, מסעדות ושקיעות קסומות',                    img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80' },
+    { name:'Twin Peaks Dive Site',           desc:'שני עמודי סלע ענקיים — פסגת חוויית הצלילה בתאילנד',                   img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Tanote Bay',                     desc:'מפרץ שקט עם אלמוגים בריאים — שנורקלינג מהחוף ללא ציוד',              img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Lighthouse Viewpoint',           desc:'תצפית מהגבעה על כל האי — זריחות ושקיעות מרהיבות',                     img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Hin Wong Bay',                   desc:'מפרץ סלעי בצד המזרחי — שנורקלינג מצוין ושקט מוחלט',                  img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80' },
+    { name:'Mae Haad Beach',                 desc:'החוף הראשי ליד הנמל — נוח לסיורים יומיים לאיים',                       img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Southwest Pinnacle',             desc:'עמוד צלילה עמוק עם קורלים ענקיים ומגוון חיים ימיים',                  img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'White Rock Dive Site',           desc:'אתר צלילה עם סלעי לבן — מושלם לצוללנים מכל הרמות',                   img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Freedom Beach',                  desc:'חוף קטן וסודי — מים ירוקים, שקט ונוף לאיים',                          img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80' },
+    { name:'Chalok Baan Kao Beach',          desc:'מפרץ גדול ושקט בדרום — בריכת גאות טבעית מושלמת לילדים',              img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Scuba Diving Course (PADI)',     desc:'קורס צלילה PADI בזמן 3 ימים — המחיר הכי זול בעולם',                  img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Night Snorkeling',               desc:'שנורקלינג לילי עם אלמוגים זוהרים ותמנונים — חוויה מאחרת',            img:'https://images.unsplash.com/photo-1533760881669-80db4d7b341c?w=600&q=80' },
+    { name:'Green Rock',                     desc:'סלע ירקרק עם מערות תת-ימיות — הרפתקת צלילה ייחודית',                  img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Mango Bay',                      desc:'מפרץ בצפון האי — שקט, נקי ומאחד מהטבע',                               img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Ko Tao Sunset Bar & View',       desc:'בארים עם תצפית שקיעה — אחד הנופים הכי מרהיבים במפרץ',                img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+  ],
+  'bangkok': [
+    { name:'Grand Palace & Wat Phra Kaew',  desc:'ארמון המלכותי עם מקדש בודהה האזמרגד — חובה לכל מבקר בבנגקוק',        img:'https://images.unsplash.com/photo-1598935898639-81586f7d2129?w=600&q=80' },
+    { name:'Wat Pho (Reclining Buddha)',     desc:'פסל הבודהה השוכב בגובה 15 מ\' — ומרכז המסאז\' התאילנדי המסורתי',     img:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80' },
+    { name:'Wat Arun (Temple of Dawn)',      desc:'מקדש הזריחה על גדות הצ\'או-פראיה — יפה במיוחד בשקיעה',               img:'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=600&q=80' },
+    { name:'Chatuchak Weekend Market',       desc:'השוק הגדול בעולם — 15,000 דוכנים של כל מה שאפשר לדמיין',             img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&q=80' },
+    { name:'Floating Markets (Damnoen)',     desc:'שוק עולה על מים בסירות עמוסות פירות וירקות — חוויה ייחודית',         img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Khao San Road',                 desc:'הרחוב האייקוני של תיירים — בארים, שווקים, אוכל רחוב ואנרגיה 24/7',   img:'https://images.unsplash.com/photo-1533760881669-80db4d7b341c?w=600&q=80' },
+    { name:'Sky Bar at Lebua (Sirocco)',     desc:'הבר הכי גבוה בעולם — מהסרט The Hangover Part II, נוף עוצר נשימה',   img:'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=600&q=80' },
+    { name:'Chinatown (Yaowarat)',           desc:'הצ\'יינטאון הכי תוסס באסיה — ים של אוכל רחוב, זהב וניאון',           img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&q=80' },
+    { name:'Jim Thompson House',             desc:'בית אמריקאי שעיצב את תעשיית המשי התאילנדי — מוזיאון קסום',            img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Lumphini Park',                  desc:'הריאה הירוקה של בנגקוק — אגם, ורנים ורצי בוקר',                      img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Asiatique The Riverfront',       desc:'מתחם קניות ובילוי על הנהר — גלגל ענק, מסעדות ומופעים',               img:'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=600&q=80' },
+    { name:'Erawan Shrine',                  desc:'מקדש הברהמה הקדוש ביותר — רקדניות מסורתיות ואווירה מיסטית',          img:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80' },
+    { name:'Canal Boat Tour (Khlong)',        desc:'טיול בסירה בתעלות הישנות — הצד הסודי של בנגקוק',                     img:'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=600&q=80' },
+    { name:'Golden Mount (Wat Saket)',       desc:'הר מלאכותי עם מקדש בפסגה ותצפית על בנגקוק',                           img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'MBK Center & Siam Paragon',     desc:'הקניונים הכי גדולים בדרום מזרח אסיה — אלקטרוניקה ואופנה',            img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Bangkok Muay Thai Show',         desc:'קרב איגרוף תאילנדי אמיתי — ספורט לאומי עם אנרגיה מטורפת',           img:'https://images.unsplash.com/photo-1533760881669-80db4d7b341c?w=600&q=80' },
+    { name:'Victory Monument Area',          desc:'אנדרטת הניצחון ובסביבתה שוק לילי ומסעדות מקומיות',                   img:'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=600&q=80' },
+    { name:'Wat Benchamabophit (Marble Temple)', desc:'מקדש השיש הלבן — אחד המקדשים האלגנטיים ביותר בתאילנד',           img:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80' },
+    { name:'Bang Krachao (Green Lung)',      desc:'אי ירוק וירוק בלב בנגקוק — רכיבה על אופניים ביערות מנגרוב',          img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Iconsiam Mall Riverside',        desc:'הקניון הכי מרשים בבנגקוק — מוזיאון, שוק מים פנימי ותצוגות',          img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+  ],
+  'pattaya': [
+    { name:'Sanctuary of Truth',            desc:'מקדש עץ ענק בגובה 105 מטר — יצירת מופת בגילוף יד עדיין בבנייה',      img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Nong Nooch Tropical Garden',    desc:'גן בוטני ענק עם מופעי פילים, תרבות תאילנדית וגינות מרהיבות',          img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Coral Island (Ko Larn)',         desc:'האי הכי קרוב לפאטייה — שנורקלינג, ספורט ים וחופים נקיים',            img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Walking Street',                desc:'הרחוב הכי תוסס בתאילנד — 500 מטר של מועדונים, בארים ואנרגיה',        img:'https://images.unsplash.com/photo-1533760881669-80db4d7b341c?w=600&q=80' },
+    { name:'Khao Chi Chan (Buddha Mountain)', desc:'ציור לייזר ענק של בודהה על הר — גובה 130 מטר, נראה מקילומטרים',     img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+    { name:'Ramayana Water Park',            desc:'פארק מים מהגדולים בתאילנד — מתאים לכל המשפחה',                        img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80' },
+    { name:'Pattaya Floating Market',        desc:'שוק עולה על מים עם 100+ דוכני אוכל, אומנות ומלאכת יד',              img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Art in Paradise Pattaya',        desc:'מוזיאון אמנות תלת-ממד — תמונות אינטרקטיביות לתמונות מטורפות',        img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Tiger Park Pattaya',             desc:'לגעת ולצלם עם נמרים ואריות — חוויה ייחודית בטוחה',                   img:'https://images.unsplash.com/photo-1581726707445-75cbe4efc586?w=600&q=80' },
+    { name:'Mini Siam',                      desc:'מיניאטורות של האנדרטאות הכי מפורסמות בעולם — כולל אייפל ותאג\'מהל', img:'https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=600&q=80' },
+    { name:'Jomtien Beach',                  desc:'חוף ג\'ומטיין הארוך — שקט יותר מפאטייה, מושלם למשפחות',              img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Pattaya Beach',                  desc:'החוף הראשי — קצת עמוס אבל מלא חיים, ספורט ים ובידור',                img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80' },
+    { name:'Silverlake Vineyard',            desc:'כרם ענבים עם נוף מרהיב — טעימות יין ותמונות סגנון טוסקנה',           img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Underwater World Pattaya',       desc:'אקווריום גדול עם מנהרה תת-ימית — כרישים, קרניות ועולם הים',          img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Ripley\'s Believe It or Not',   desc:'מוזיאון הדברים המוזרים — 10 קומות של תצוגות מעוררות תדהמה',           img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Phra Tamnak Hill (Big Buddha)', desc:'פסל בודהה גדול בפסגת הגבעה — תצפית נפלאה למפרץ פאטייה',              img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Cartoon Network Amazone',       desc:'פארק המים של קרטון נטוורק — חלום לילדים ולמשפחות',                    img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80' },
+    { name:'Pattaya Dolphin World',         desc:'מופעי דולפינים ולביאות ים — קרוב, אינטרקטיבי וכיפי לילדים',          img:'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80' },
+    { name:'Terminal 21 Pattaya',           desc:'קניון בסגנון שדה תעופה בינלאומי — כל קומה עיר אחרת בעולם',           img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Bali Hai Pier & Island Tours',  desc:'הנמל הראשי לסיורי אי — קו לנטה, קו סיצ\'אנג ועוד',                   img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+  ],
+  'chiang-mai': [
+    { name:'Wat Doi Suthep',                desc:'מקדש קדוש על ראש ההר — 306 מדרגות ותצפית על כל צ\'אנג מאי',          img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Elephant Nature Park',          desc:'מקלט פילים אתי — להאכיל ולרחוץ פילים בסביבה טבעית מוגנת',            img:'https://images.unsplash.com/photo-1581726707445-75cbe4efc586?w=600&q=80' },
+    { name:'Chiang Mai Night Bazaar',        desc:'שוק לילי גדול בלב העיר — בגדים, אומנות, מלאכת יד ואוכל',            img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&q=80' },
+    { name:'Old City (Wiang)',               desc:'העיר העתיקה המוקפת חומה ותעלה — 30+ מקדשים ב-2 קמ\"ר',              img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Sunday Walking Street',         desc:'השוק הכי שווה בתאילנד — רחוב וואלאי מלא אומנים ואוכל מדהים',         img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Doi Inthanon (Highest Peak)',   desc:'פסגת ההר הגבוה בתאילנד 2,565 מ\' — מפלים, קהילות שבטיות ואוויר נקי', img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Thai Cooking Class',            desc:'ללמוד לבשל תאילנדי אמיתי — שוק בוקר ואחריו בישול עם שף',              img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&q=80' },
+    { name:'Sticky Waterfalls (Bua Tong)', desc:'מפלים שאפשר לטפס עליהם ברגל — מינרלים יוצרים חיכוך טבעי',             img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Wat Chedi Luang',               desc:'חורבות מקדש מהמאה ה-14 — עמוד מרשים בלב העיר העתיקה',                img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Wat Phra Singh',                desc:'מקדש מלכותי עם פסל בודהה פינג המפורסם — אדריכלות לאנה מרהיבה',       img:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80' },
+    { name:'Nimman Road (Nimmanhaemin)',     desc:'הרחוב הכי טרנדי — קפה-הופינג, גלריות ומסעדות יצירתיות',              img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Tiger Kingdom',                 desc:'לצלם עם נמרים — תינוקות, צעירים ומבוגרים, חוויה בטוחה',              img:'https://images.unsplash.com/photo-1581726707445-75cbe4efc586?w=600&q=80' },
+    { name:'Huay Tung Tao Lake',            desc:'אגם ציורי עם מסעדות במים — פיקניק, שחייה ורוגע',                     img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Chiang Mai Zoo',                desc:'גן חיות עם פנדות ענק, פנגווינים ומגוון חיות אסיה',                    img:'https://images.unsplash.com/photo-1581726707445-75cbe4efc586?w=600&q=80' },
+    { name:'Doi Pui Hmong Village',         desc:'כפר שבטי המונג על ראש ההר — תרבות מסורתית וטרק ביער',                img:'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=600&q=80' },
+    { name:'Chiang Mai Muay Thai',          desc:'אימון או מופע איגרוף תאילנדי — מסורת ספורטיבית עתיקה',               img:'https://images.unsplash.com/photo-1533760881669-80db4d7b341c?w=600&q=80' },
+    { name:'Three Kings Monument',          desc:'אנדרטת שלושת המלכים במרכז העיר — לב הפעילות התרבותית',               img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Mae Sa Elephant Camp',          desc:'מחנה פילים עם הופעות ורחצה — משפחתי ומקסים',                          img:'https://images.unsplash.com/photo-1581726707445-75cbe4efc586?w=600&q=80' },
+    { name:'Chiang Mai Arts & Cultural Center', desc:'מרכז תרבות בארמון ישן — היסטוריה של ממלכת לאנה',                  img:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80' },
+    { name:'Borsang Umbrella Village',      desc:'כפר מטריות העשויות ביד — אומנות מסורתית וצבעוניות מרהיבה',           img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+  ],
+  'pai': [
+    { name:'Pai Canyon (Kong Lan)',          desc:'קניון עם שבילים צרים מעל פצלי אבן — שקיעות מהפנטות ונוף לעמק',       img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Bamboo Bridge (Boon Ko Ku So)', desc:'גשר במבוק ארוך מעל שדות אורז ירוקים — הנוף הסמלי של פאי',            img:'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=600&q=80' },
+    { name:'Tha Pai Hot Springs',           desc:'מעיינות חמים טבעיים בריח גופרית — בתוך פארק יפה ומטופח',             img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Pai Walking Street',            desc:'רחוב ההליכה הלילי — אוכל, מוזיקה חיה, אומנות ואווירה היפסטרית',      img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'WWII Memorial Bridge',          desc:'גשר ההיסטורי על נהר פאי — מהמלחמה העולמית השנייה, נוף קסום',          img:'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=600&q=80' },
+    { name:'Yun Lai Viewpoint (Chinese Village)', desc:'כפר הסיני עם תצפית מרהיבה לעמק — בוקר עם ערפל קסום',            img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Santichon Chinese Village',     desc:'כפר יונאני תאי עם תרבות, אוכל ותצוגות מסורתיות',                      img:'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=600&q=80' },
+    { name:'Wat Mae Yen Temple',            desc:'מקדש לבן על גבעה — 353 מדרגות ותצפית על כל עמק פאי',                 img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Land of Love Flower Fields',    desc:'שדות פרחים צבעוניים ורומנטיים — פסי פרחים לתמונות מושלמות',          img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Pai River Tubing',              desc:'גלישה על טיובים בנהר פאי — כיף, ספוקי ומרענן',                       img:'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=600&q=80' },
+    { name:'Mo Paeng Waterfall',            desc:'מפל קטן וציורי בין סלעים — שחייה ומנוחה בטבע',                       img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Pam Bok Canyon',                desc:'קניון קטן יותר אבל עצום ביופי — פחות תיירים, יותר שקט',               img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Coffee in Love Café',           desc:'קפה ציורי בשדות פרחים — אחד הצילומים הכי מפורסמים בפאי',             img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Pai Circus Arts',               desc:'אקרובטיקה, אש ומופעי רחוב — פאי מלאה אמנים ומופיעים',               img:'https://images.unsplash.com/photo-1533760881669-80db4d7b341c?w=600&q=80' },
+    { name:'Huai Nam Dang National Park',  desc:'פארק לאומי עם ערפל בוקר על ההרים — ציפורים ופרחי בר נדירים',          img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Tham Lod Cave (near Pai)',      desc:'מערת סלע ענקית עם נהר תוכה וציורי קיר עתיקים',                        img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Pai Night Market',              desc:'שוק לילי קטן ואותנטי — אוכל צפוני, תה צמחים ואווירה ביתית',          img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&q=80' },
+    { name:'Motorbike Tour of Pai Valley',  desc:'סיור אופנוע לאורך העמק — הדרך הכי חופשית לגלות את פאי',              img:'https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=600&q=80' },
+    { name:'Pai Yoga & Meditation Retreat', desc:'ריטריטים של יוגה ומדיטציה — קהילה רוחנית בלב הטבע',                   img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Wiang Nuea Waterfall',          desc:'מפל נסתר בצפון פאי — כמעט ולא נמצא במדריכי תיירות',                  img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+  ],
+  'hua-hin': [
+    { name:'Hua Hin Beach',                 desc:'החוף הארוך הנקי — חוף מלכותי בו מתגורר המלך התאילנדי',                img:'https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=600&q=80' },
+    { name:'Cicada Market',                 desc:'שוק אמנות ועיצוב בלילה — הכי יצירתי ואיכותי בהואה-אין',              img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+    { name:'Vana Nava Water Park',          desc:'פארק מים מודרני — גלים, מגלשות ואתרקציות מים לכל הגילאים',            img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80' },
+    { name:'Maruekhathaiyawan Palace',      desc:'ארמון עץ מלכותי מ-1923 על חוף הים — אדריכלות קולוניאלית מרהיבה',     img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Khao Sam Roi Yot National Park', desc:'פארק לאומי עם אגמים, מפרצים ומערות עם אלף עמודים',                  img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Phraya Nakhon Cave',            desc:'מערה עם חור בתקרה שאור השמש נכנס אל ביתן מלכותי — קסום',             img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Hua Hin Night Market',          desc:'השוק הלילי המקומי — ים של שי-פוד, פירות ואוכל רחוב מקומי',           img:'https://images.unsplash.com/photo-1555992336-03a23c7b20ee?w=600&q=80' },
+    { name:'Black Mountain Water Park',     desc:'פארק מים עם נוף להרים — בריכות מגניבות ומגלשות ארוכות',              img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80' },
+    { name:'Hua Hin Railway Station',       desc:'תחנת הרכבת הכי יפה בתאילנד — ארכיטקטורה תאילנדית-ויקטוריאנית',      img:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80' },
+    { name:'Wat Huay Mongkol',              desc:'מקדש ענק עם פסל לואנגפו תואד הגדול בעולם — 10 מטר גובה',             img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Swiss Sheep Farm',              desc:'חווה שוויצרית בתאילנד — כבשים לבנות, נוף ירוק ואנרגיה אחרת',         img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Rajabhakti Park',               desc:'7 פסלי מלכים ענקיים מזהב — פארק מרהיב לאורך 2.5 ק"מ',               img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80' },
+    { name:'Pranburi Forest Park',          desc:'פארק יערות מנגרוב — נתיבי הליכה על גשרי עץ בין העצים',               img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Cha-Am Beach',                  desc:'חוף ח\'ה-אם הנמוך — שקט יותר, מחירים זולים ואוכל מקומי מעולה',       img:'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80' },
+    { name:'Hua Hin Hills Vineyard',        desc:'כרם יין ייחודי בהרים — טיולי ג\'יפ, טעימות ואווירה קסומה',           img:'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=600&q=80' },
+    { name:'Khao Tao Temple & Cave',        desc:'מקדש בתוך מערה על חוף הים — ייחודי, קצת נסתר ומאוד יפה',            img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80' },
+    { name:'Hua Hin Kiteboarding',          desc:'הואה-אין עיר הקייטסרפינג — קורסים לכל הרמות על שפת הים',             img:'https://images.unsplash.com/photo-1590859808308-3d2d9c515b1a?w=600&q=80' },
+    { name:'Safari & Adventure Park',       desc:'ספארי עם אריות, נמרים ופילים — יום שלם של הרפתקאות משפחתיות',         img:'https://images.unsplash.com/photo-1581726707445-75cbe4efc586?w=600&q=80' },
+    { name:'Tham Khao Luang Cave Temple',  desc:'מערה גדולה עם מקדש פנים ותאורת שמש טבעית ייחודית',                    img:'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80' },
+    { name:'Hua Hin Artisan Market',        desc:'שוק אומנים ובוטיק מקומי — יצירות יד, בגדים ואוכל בריא',              img:'https://images.unsplash.com/photo-1596700835730-28b5d3b9ef33?w=600&q=80' },
+  ],
+};
+
+function mapsUrl(name, city) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name + ' ' + city + ' Thailand')}`;
+}
+
 // ─── AGODA ─────────────────────────────────────────────────────────────────
 const AGODA_SITE_ID = '1925990';
 const AGODA_API_KEY = '81c5cba9-907c-4bf8-9891-9f8500a0b60c';
@@ -851,9 +1057,66 @@ function showDest(dest) {
   categories.filter(cat => !(cat.key === 'beaches' && noBeach.includes(dest.id))).forEach(cat => {
     const handler = cat.key === 'hotels'  ? () => showHotelTypes(dest)
                  : cat.key === 'chabad'   ? () => showChabad(dest)
+                 : cat.key === 'attract'  ? () => showAttractions(dest)
                  : () => alert(`בקרוב: ${cat.name} ב${dest.name}`);
     const img = (destCategoryImages[dest.id] && destCategoryImages[dest.id][cat.key]) || categoryImages[cat.key];
     grid.appendChild(makeCard(img, cat.icon, cat.name, cat.sub, handler));
+  });
+}
+
+function showAttractions(dest) {
+  heroImg.src = dest.hero;
+  heroTitle.textContent = `אטרקציות ב${dest.name}`;
+  heroSub.textContent   = '20 דברים שחייבים לראות ולעשות';
+  secTitle.textContent  = `🏛️ אטרקציות מובילות — ${dest.name}`;
+  renderNav([
+    { label: '🏠 יעדים', onClick: showHome },
+    { label: dest.name, onClick: () => showDest(dest) },
+    { label: '🏛️ אטרקציות' },
+  ]);
+
+  const list = attractionsData[dest.id] || [];
+  grid.className = 'grid hotel-grid fade-in';
+  grid.innerHTML = '';
+
+  list.forEach(a => {
+    const card = document.createElement('div');
+    card.className = 'hotel-card';
+    card.style.cursor = 'default';
+
+    const imgWrap = document.createElement('div');
+    imgWrap.className = 'hotel-img-wrap';
+    const img = document.createElement('img');
+    img.src = a.img;
+    img.alt = a.name;
+    img.loading = 'lazy';
+    imgWrap.appendChild(img);
+
+    const info = document.createElement('div');
+    info.className = 'hotel-info';
+
+    const name = document.createElement('div');
+    name.className = 'hotel-name';
+    name.textContent = a.name;
+
+    const desc = document.createElement('div');
+    desc.className = 'hotel-desc';
+    desc.style.marginTop = '6px';
+    desc.textContent = a.desc;
+
+    const mapsBtn = document.createElement('a');
+    mapsBtn.href = mapsUrl(a.name, dest.name);
+    mapsBtn.target = '_blank';
+    mapsBtn.rel = 'noopener';
+    mapsBtn.style.cssText = 'margin-top:12px;display:block;text-align:center;padding:8px;background:#4285f4;color:#fff;font-weight:700;border-radius:8px;font-size:0.85rem;text-decoration:none;';
+    mapsBtn.textContent = '📍 פתח בגוגל מפס';
+
+    info.appendChild(name);
+    info.appendChild(desc);
+    info.appendChild(mapsBtn);
+    card.appendChild(imgWrap);
+    card.appendChild(info);
+    grid.appendChild(card);
   });
 }
 
