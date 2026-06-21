@@ -190,6 +190,96 @@
     }
     .chabad-no strong { color: #b8860b; }
 
+    /* ===== AGODA HOTEL CARD ===== */
+    .agoda-card {
+      border-radius: 16px; overflow: hidden;
+      background: #1a1f2b;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+      display: flex; flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .agoda-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(249,199,79,0.2);
+    }
+    .agoda-card .agoda-img {
+      width: 100%; height: 190px; overflow: hidden; flex-shrink: 0; position: relative;
+    }
+    .agoda-card .agoda-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s ease;
+    }
+    .agoda-card:hover .agoda-img img { transform: scale(1.07); }
+    .agoda-card .agoda-badge {
+      position: absolute; top: 10px; left: 10px;
+      background: rgba(0,0,0,0.72); color: #f9c74f;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .agoda-card .discount-badge {
+      position: absolute; top: 10px; right: 10px;
+      background: #e74c3c; color: #fff;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 3px 8px; border-radius: 20px;
+    }
+    .agoda-card .agoda-info {
+      padding: 14px 16px 16px;
+      display: flex; flex-direction: column; gap: 6px; flex: 1;
+    }
+    .agoda-card .agoda-name {
+      font-size: 0.98rem; font-weight: 700; color: #fff; line-height: 1.3;
+    }
+    .agoda-card .agoda-meta {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.78rem; color: rgba(255,255,255,0.55);
+    }
+    .agoda-card .agoda-score {
+      background: #0a6640; color: #4ade80;
+      padding: 2px 8px; border-radius: 8px;
+      font-weight: 700; font-size: 0.8rem;
+    }
+    .agoda-card .agoda-perks {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .agoda-card .perk {
+      background: rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 2px 9px;
+      font-size: 0.71rem; color: rgba(255,255,255,0.65);
+    }
+    .agoda-card .agoda-bottom {
+      margin-top: auto; padding-top: 10px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .agoda-card .agoda-price {
+      font-size: 1.1rem; font-weight: 800; color: #4ade80;
+    }
+    .agoda-card .agoda-price small {
+      font-size: 0.7rem; color: rgba(255,255,255,0.4); font-weight: 400;
+    }
+    .agoda-card .agoda-btn {
+      background: #f9c74f; color: #0d1117;
+      font-size: 0.8rem; font-weight: 800;
+      padding: 7px 16px; border-radius: 20px;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .agoda-card .agoda-btn:hover { background: #ffe082; }
+
+    /* ===== LOADING ===== */
+    .loading-box {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 80px 20px; gap: 18px; width: 100%;
+    }
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid rgba(249,199,79,0.2);
+      border-top-color: #f9c74f;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-box p { color: rgba(255,255,255,0.5); font-size: 0.95rem; }
+
     /* ===== FADE ===== */
     .fade-in { animation: fadeIn 0.35s ease; }
     @keyframes fadeIn {
@@ -926,26 +1016,81 @@ function agodaCityUrl(destId) {
   return `https://www.agoda.com/search?city=${cityId}&site_id=${AGODA_SITE_ID}`;
 }
 
-async function fetchAgodaHotels(destId) {
+const agodaSortBy = {
+  families: 'FamiliesWithYoungReviewScore',
+  couples:  'CouplesReviewScore',
+  young:    'SoloTravllersReviewScore',
+};
+
+async function fetchAgodaHotels(destId, type) {
   const cityId = agodaCityIds[destId];
   if (!cityId) return null;
-  const today = new Date();
-  const checkIn  = today.toISOString().split('T')[0];
-  const checkOut = new Date(today.getTime() + 86400000).toISOString().split('T')[0];
+  const d = new Date(); d.setDate(d.getDate() + 7);
+  const fmt = x => x.toISOString().split('T')[0];
+  const d2 = new Date(d); d2.setDate(d2.getDate() + 1);
   try {
-    const res = await fetch('/.netlify/functions/agoda', {
+    const res = await fetch('https://affiliateapi7643.agoda.com/affiliateservice/lt_v1', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept-Encoding': 'gzip,deflate',
+        'Authorization': `${AGODA_SITE_ID}:${AGODA_API_KEY}`,
+      },
       body: JSON.stringify({
-        criteria: { cityId, checkIn, checkOut, rooms: 1, adults: 2, children: 0, currency: 'USD' },
-        paging: { pageNo: 1, pageSize: 20 },
+        criteria: {
+          additional: {
+            currency: 'USD',
+            language: 'en-us',
+            maxResult: 20,
+            minimumStarRating: 0,
+            minimumReviewScore: 0,
+            discountOnly: false,
+            sortBy: agodaSortBy[type] || 'Recommended',
+            occupancy: { numberOfAdult: 2, numberOfChildren: 0 },
+          },
+          checkInDate: fmt(d),
+          checkOutDate: fmt(d2),
+          cityId,
+        },
       }),
     });
     if (!res.ok) return null;
-    return await res.json();
+    const data = await res.json();
+    return data.results || null;
   } catch {
     return null;
   }
+}
+
+function makeAgodaHotelCard(h) {
+  const card = document.createElement('div');
+  card.className = 'agoda-card';
+  const stars = '★'.repeat(Math.round(h.starRating)) + '☆'.repeat(5 - Math.round(h.starRating));
+  const perks = [];
+  if (h.freeWifi) perks.push('WiFi חינם');
+  if (h.includeBreakfast) perks.push('ארוחת בוקר');
+  const discBadge = h.discountPercentage > 0
+    ? `<div class="discount-badge">-${Math.round(h.discountPercentage)}%</div>` : '';
+  card.innerHTML = `
+    <div class="agoda-img">
+      <img src="${h.imageURL}" alt="${h.hotelName}" loading="lazy"
+           onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80'" />
+      <div class="agoda-badge">${stars}</div>
+      ${discBadge}
+    </div>
+    <div class="agoda-info">
+      <div class="agoda-name">${h.hotelName}</div>
+      <div class="agoda-meta">
+        <span class="agoda-score">★ ${h.reviewScore.toFixed(1)}</span>
+        <span>${h.reviewCount ? h.reviewCount.toLocaleString() + ' ביקורות' : ''}</span>
+      </div>
+      ${perks.length ? `<div class="agoda-perks">${perks.map(p=>`<span class="perk">✓ ${p}</span>`).join('')}</div>` : ''}
+      <div class="agoda-bottom">
+        <div class="agoda-price">$${Math.round(h.dailyRate)}<small>/לילה</small></div>
+        <a class="agoda-btn" href="${h.landingURL}" target="_blank" rel="noopener">הזמן עכשיו</a>
+      </div>
+    </div>`;
+  return card;
 }
 
 // ─── STATE ─────────────────────────────────────────────────────────────────
@@ -1143,100 +1288,42 @@ function showHotelTypes(dest) {
   grid.className = 'grid cat-grid fade-in';
   grid.innerHTML = '';
   hotelTypes.forEach(type => {
-    const handler = type.key === 'families'
-      ? () => showFamilyHotels(dest)
-      : () => alert(`בקרוב: מלונות ל${type.name} ב${dest.name}`);
-    grid.appendChild(makeCard(type.img, type.icon, type.name, type.sub, handler));
+    grid.appendChild(makeCard(type.img, type.icon, type.name, type.sub, () => showAgodaHotels(dest, type)));
   });
 }
 
-function showFamilyHotels(dest) {
+async function showAgodaHotels(dest, type) {
   heroImg.src = dest.hero;
-  heroTitle.textContent = `מלונות משפחתיים ב${dest.name}`;
-  heroSub.textContent   = 'מחירים ותמונות אמיתיות ישירות מאגודה';
-  secTitle.textContent  = `👨‍👩‍👧‍👦 מלונות למשפחות — ${dest.name}`;
+  heroTitle.textContent = `מלונות ל${type.name} ב${dest.name}`;
+  heroSub.textContent   = 'תמונות ומחירים אמיתיים מאגודה';
+  secTitle.textContent  = `${type.icon} מלונות ל${type.name} — ${dest.name}`;
   renderNav([
     { label: '🏠 יעדים', onClick: showHome },
     { label: dest.name, onClick: () => showDest(dest) },
     { label: '🏨 מלונות', onClick: () => showHotelTypes(dest) },
-    { label: '👨‍👩‍👧‍👦 משפחות' },
+    { label: `${type.icon} ${type.name}` },
   ]);
 
-  const cityId = agodaCityIds[dest.id];
-  const agodaSearchUrl = agodaCityUrl(dest.id);
-  const hotels = familyHotels[dest.id] || [];
+  grid.className = 'grid hotel-grid fade-in';
+  grid.innerHTML = '<div class="loading-box"><div class="spinner"></div><p>טוען מלונות מאגודה...</p></div>';
 
-  grid.className = 'fade-in';
+  const results = await fetchAgodaHotels(dest.id, type.key);
   grid.innerHTML = '';
 
-  // כפתור חיפוש ראשי
-  const searchWrap = document.createElement('div');
-  searchWrap.style.cssText = 'max-width:680px;margin:0 auto 40px;';
-  const searchBtn = document.createElement('a');
-  searchBtn.href = agodaSearchUrl;
-  searchBtn.target = '_blank';
-  searchBtn.rel = 'noopener';
-  searchBtn.style.cssText = 'display:flex;align-items:center;justify-content:space-between;background:#e5472d;color:#fff;padding:20px 28px;border-radius:16px;text-decoration:none;font-size:1.1rem;font-weight:700;box-shadow:0 4px 20px rgba(229,71,45,0.35);';
-  searchBtn.innerHTML = `<span>🔍 חפש מלונות משפחתיים ב${dest.name}</span><span style="font-size:1.5rem;">←</span>`;
-  const searchNote = document.createElement('p');
-  searchNote.style.cssText = 'text-align:center;margin-top:12px;color:#888;font-size:0.85rem;';
-  searchNote.textContent = 'תמונות אמיתיות · מחירים עדכניים · הזמנה מאובטחת';
-  searchWrap.appendChild(searchBtn);
-  searchWrap.appendChild(searchNote);
-  grid.appendChild(searchWrap);
+  if (results && results.length > 0) {
+    results.forEach(h => grid.appendChild(makeAgodaHotelCard(h)));
+    return;
+  }
 
-  // רשימת מלונות
-  const listWrap = document.createElement('div');
-  listWrap.style.cssText = 'border-top:1px solid #e5e5e5;padding-top:32px;';
-  const listTitle = document.createElement('h3');
-  listTitle.style.cssText = 'text-align:center;margin-bottom:24px;font-size:1.1rem;color:#555;';
-  listTitle.textContent = 'מלונות מומלצים — לחץ להזמנה באגודה';
-  listWrap.appendChild(listTitle);
-
-  const list = document.createElement('div');
-  list.style.cssText = 'display:flex;flex-direction:column;gap:12px;max-width:780px;margin:0 auto;';
-
-  hotels.forEach(h => {
-    const stars = '★'.repeat(h.stars) + '☆'.repeat(5 - h.stars);
-    const row = document.createElement('a');
-    row.href = agodaUrl(h.name, dest.id);
-    row.target = '_blank';
-    row.rel = 'noopener';
-    row.style.cssText = 'display:flex;justify-content:space-between;align-items:center;background:#fff;border:1px solid #e8e8e8;border-radius:12px;padding:16px 20px;text-decoration:none;color:inherit;box-shadow:0 2px 8px rgba(0,0,0,0.06);';
-
-    const info = document.createElement('div');
-    info.style.flex = '1';
-    const name = document.createElement('div');
-    name.style.cssText = 'font-weight:700;font-size:0.95rem;color:#1a1a2e;';
-    name.textContent = h.name;
-    const starsEl = document.createElement('div');
-    starsEl.style.cssText = 'color:#d4a017;font-size:0.8rem;margin:3px 0;';
-    starsEl.textContent = stars;
-    const desc = document.createElement('div');
-    desc.style.cssText = 'font-size:0.78rem;color:#777;';
-    desc.textContent = h.desc;
-    info.appendChild(name);
-    info.appendChild(starsEl);
-    info.appendChild(desc);
-
-    const priceWrap = document.createElement('div');
-    priceWrap.style.cssText = 'text-align:left;margin-right:16px;flex-shrink:0;';
-    const price = document.createElement('div');
-    price.style.cssText = 'color:#16a34a;font-weight:700;font-size:0.9rem;';
-    price.textContent = h.price;
-    const book = document.createElement('div');
-    book.style.cssText = 'color:#e5472d;font-size:0.78rem;margin-top:4px;';
-    book.textContent = 'הזמן ←';
-    priceWrap.appendChild(price);
-    priceWrap.appendChild(book);
-
-    row.appendChild(info);
-    row.appendChild(priceWrap);
-    list.appendChild(row);
+  // Fallback: static list with Agoda links
+  const hotels = familyHotels[dest.id] || [];
+  const imgPool = hotelImgs[destImgType[dest.id]] || hotelImgs.beach;
+  hotels.forEach((h, i) => {
+    const card = makeHotelCard(h, imgPool[i % imgPool.length]);
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => window.open(agodaUrl(h.name, dest.id), '_blank'));
+    grid.appendChild(card);
   });
-
-  listWrap.appendChild(list);
-  grid.appendChild(listWrap);
 }
 
 function showChabad(dest) {
